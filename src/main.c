@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define BAUD_RATE   9600
+#define BAUD_RATE   19200
 #define BUFF_SIZE   512
 
 unsigned char replay_array[] =
-{0x54, 0x45, 0x53, 0x54, 0x0A, 0x0D};
+{0x54, 0x45, 0x53, 0x54, 0x0D};
 
 struct sp_port *port;
 char *serial_port_name;
@@ -16,6 +16,7 @@ void
 write_array()
 {
     int ret = sp_nonblocking_write(port, message, strlen(message));
+    printf("Number of bytes sent: %d\n", ret);
     if (ret < 0)
         fprintf(stderr, "Unable to write to serial port %s\n", serial_port_name);
 }
@@ -83,7 +84,6 @@ main(int argc, char **argv)
         bytes_waiting = sp_input_waiting(port);
         if (bytes_waiting > 0) {
             num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
-            printf("Number of bytes read: %d\n", num_read);
             print_buffer(byte_buff,num_read);
         }
     }
@@ -93,5 +93,6 @@ main(int argc, char **argv)
         write_array();
         sleep(2);
     }
+
     return 0;
 }
