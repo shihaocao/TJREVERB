@@ -12,11 +12,11 @@ INCLUDE_PATH = include
 # Space-separated pkg-config libraries used by this project
 LIBS =
 # General compiler flags
-COMPILE_FLAGS = -std=c99 -Wall -Werror -Wextra -g
+COMPILE_FLAGS = -std=c99 -Wall -Wextra -g
 # Additional release-specific flags
-RCOMPILE_FLAGS = -D NDEBUG
+RCOMPILE_FLAGS = -D NDEBUG -Werror -O3
 # Additional debug-specific flags
-DCOMPILE_FLAGS = -D DEBUG
+DCOMPILE_FLAGS = -D DEBUG -g3
 # Add additional include paths
 INCLUDES = -I $(SRC_PATH) $(INCLUDE_PATH)
 # General linker settings
