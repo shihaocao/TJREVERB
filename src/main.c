@@ -1,6 +1,7 @@
 #include <libserialport.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 #define BAUD_RATE   19200
 #define BUFF_SIZE   512
@@ -21,7 +22,7 @@ write_array()
         fprintf(stderr, "Unable to write to serial port %s\n", serial_port_name);
 }
 
-void 
+void
 print_buffer(unsigned char *byte_buff, int num_read) {
     for (int i = 0; i < num_read; i++)
         printf("%c" , byte_buff[i]);
@@ -52,7 +53,7 @@ main(int argc, char **argv)
 
     int bytes_waiting = 0;
     int num_read = 0;
-    
+
     print_banner();
 
     if (argc < 2) {
@@ -79,15 +80,15 @@ main(int argc, char **argv)
         fprintf(stderr, "Unable to set the baud rate to: %d\n", BAUD_RATE);
         return -1;
     }
-/*
-    while(1) {
+
+    while(0) {
         bytes_waiting = sp_input_waiting(port);
         if (bytes_waiting > 0) {
             num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
             print_buffer(byte_buff,num_read);
         }
     }
-*/
+
     while (1) {
         printf("Sending message \n");
         write_array();
