@@ -69,11 +69,16 @@ main(int argc, char **argv)
         return -1;
     }
 
-    ret = sp_open(port,SP_MODE_READ);
+    ret = sp_open(port,SP_MODE_READ_WRITE);
     if (ret != SP_OK) {
         fprintf(stderr, "Unable to open serial port %s\n", serial_port_name);
         return -1;
-    }
+      }
+    /*ret = sp_open(port,SP_MODE_WRITE);
+    if (ret != SP_OK) {
+        fprintf(stderr, "Unable to open serial port %s\n", serial_port_name);
+        return -1;
+    }*/
 
     ret = sp_set_baudrate(port,BAUD_RATE);
     if (ret != SP_OK) {
@@ -81,7 +86,7 @@ main(int argc, char **argv)
         return -1;
     }
 
-    while(0) {
+    while(1) {
         bytes_waiting = sp_input_waiting(port);
         if (bytes_waiting > 0) {
             num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
@@ -89,7 +94,7 @@ main(int argc, char **argv)
         }
     }
 
-    while (1) {
+    while (0) {
         printf("Sending message \n");
         write_array();
         sleep(2);
