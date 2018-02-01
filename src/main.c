@@ -11,10 +11,10 @@ unsigned char replay_array[] =
 
 struct sp_port *port;
 char *serial_port_name;
-char *message = "Hi there\r";
+
 
 void
-write_array()
+write_array(char *message)
 {
     int ret = sp_nonblocking_write(port, message, strlen(message));
     printf("Number of bytes sent: %d\n", ret);
@@ -94,10 +94,11 @@ main(int argc, char **argv)
               num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
               print_buffer(byte_buff,num_read);
               printf("Sending message \n");
-              write_array();
+              write_array(("MEEP %s \r" __TIME__));
               sleep(2);
           }
-          printf("Waiting\n");
+ 	  sp_flush(port, bytes_waiting);
+
       }
     }
     if (strcmp(argv[2],"beacon")==0)
@@ -110,8 +111,8 @@ main(int argc, char **argv)
               print_buffer(byte_buff,num_read);
           }
           printf("Sending message \n");
-          write_array();
-          sleep(2);
+          write_array(("MEEP %s" __TIME__));
+          sleep(10);
           //printf("Waiting\n");
       }
     }
