@@ -12,6 +12,9 @@ unsigned char replay_array[] =
 struct sp_port *port;
 char *serial_port_name;
 
+FILE *file;
+
+
 
 void
 write_array(char *message)
@@ -49,6 +52,8 @@ print_banner()
 int
 main(int argc, char **argv)
 {
+    file = fopen("log.txt", "a");
+    
     unsigned char byte_buff[BUFF_SIZE] = {0};
 
     int bytes_waiting = 0;
