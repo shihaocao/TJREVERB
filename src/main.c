@@ -100,7 +100,7 @@ main(int argc, char **argv)
               num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
               print_buffer(byte_buff,num_read);
               printf("Sending message \n");
-              write_array(("heartbeat response %s \n" __TIME__));
+              write_array(("heartbeat response %ld \n" __TIME__));
               sleep(2);
           }
  	  //sp_flush(port, bytes_waiting);
