@@ -60,7 +60,10 @@ main(int argc, char **argv)
         print_usage(argv[0]);
         return -1;
     }
-
+    if (strcmp(argv[2],"heartbeat")==0)
+    {
+      printf("HEARTBEAT MODE\n");
+    }
     serial_port_name = argv[1]; // WARNING, No error checking here
 
     enum sp_return ret = sp_get_port_by_name(serial_port_name, &port);
