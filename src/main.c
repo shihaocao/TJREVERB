@@ -1,6 +1,7 @@
 #include <libserialport.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <time.h>
 #include <string.h>
 
 #define BAUD_RATE   19200
@@ -102,13 +103,47 @@ main(int argc, char **argv)
               write_array(("heartbeat response %s \n" __TIME__));
               sleep(2);
           }
- 	  sp_flush(port, bytes_waiting);
+ 	  //sp_flush(port, bytes_waiting);
 
       }
     }
     if (strcmp(argv[2],"beacon")==0)
     {
+      time_t rawtime;
+      //struct tm * timeinfo;
+      time ( &rawtime );
+
+      long int oldtime = rawtime;
+
       printf("BEACON MODE\n");
+      while(1) {
+
+        ///char testnum[5]
+        //
+        time ( &rawtime );
+        printf("%ld",rawtime);
+        printf("\n");
+        //long int newtime = rawtime + 5;
+        printf("%ld", oldtime);
+        printf("\n");
+        //printf("%ld", newtime - 5);
+        //timeinfo = localtime ( &rawtime );
+        //printf ( "Current local time and date: %s", asctime (timeinfo) );
+          bytes_waiting = sp_input_waiting(port);
+
+          if (bytes_waiting > 0) {
+              num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+              print_buffer(byte_buff,num_read);
+          }
+          printf("Sending message \n");
+          write_array(("beacon pulse %s \n" __TIME__));
+          sleep(5);
+          //printf("Waiting\n");
+      }
+    }
+    if (strcmp(argv[2],"command")==0)
+    {
+      printf("COMMAND MODE\n");
       while(1) {
           bytes_waiting = sp_input_waiting(port);
           if (bytes_waiting > 0) {
@@ -116,12 +151,35 @@ main(int argc, char **argv)
               print_buffer(byte_buff,num_read);
           }
           printf("Sending message \n");
-          write_array(("beacon pulse %s \n" __TIME__));
+          char s1[50];
+          printf("Enter command: ");
+          int i = scanf("%s",s1);
+          printf("Sending command: %s\n",s1);
+          printf("%i\n",i);
+          write_array(s1);
           sleep(10);
           //printf("Waiting\n");
       }
     }
+    if (strcmp(argv[2],"time")==0)
+    {
+      printf("TIME MODE\n");
+      FILE *times
+      char *mode = "r"
+      filename = "time.txt"
 
+      if(times == NULL)
+        fprintf(stderr, "ERROR: File %s\n can not be opened", filename);
+
+
+
+      times = fopen(filename, mode);
+
+      while(1) {
+
+          //printf("Waiting\n");
+      }
+    }
     while (0) {
 
         sleep(2);
