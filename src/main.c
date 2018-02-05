@@ -60,10 +60,6 @@ main(int argc, char **argv)
         print_usage(argv[0]);
         return -1;
     }
-    if (strcmp(argv[2],"heartbeat")==0)
-    {
-      printf("HEARTBEAT MODE\n");
-    }
     serial_port_name = argv[1]; // WARNING, No error checking here
 
     enum sp_return ret = sp_get_port_by_name(serial_port_name, &port);
@@ -88,18 +84,40 @@ main(int argc, char **argv)
         fprintf(stderr, "Unable to set the baud rate to: %d\n", BAUD_RATE);
         return -1;
     }
-
-    while(1) {
-        bytes_waiting = sp_input_waiting(port);
-        if (bytes_waiting > 0) {
-            num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
-            print_buffer(byte_buff,num_read);
-        }
+    //MODE CHOOSING HERE
+    if (strcmp(argv[2],"heartbeat")==0)
+    {
+      printf("HEARTBEAT MODE\n");
+      while(1) {
+          bytes_waiting = sp_input_waiting(port);
+          if (bytes_waiting > 0) {
+              num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+              print_buffer(byte_buff,num_read);
+              printf("Sending message \n");
+              write_array();
+              sleep(2);
+          }
+          printf("Waiting\n");
+      }
+    }
+    if (strcmp(argv[2],"beacon")==0)
+    {
+      printf("BEACON MODE\n");
+      while(1) {
+          bytes_waiting = sp_input_waiting(port);
+          if (bytes_waiting > 0) {
+              num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+              print_buffer(byte_buff,num_read);
+          }
+          printf("Sending message \n");
+          write_array();
+          sleep(2);
+          //printf("Waiting\n");
+      }
     }
 
     while (0) {
-        printf("Sending message \n");
-        write_array();
+
         sleep(2);
     }
 
