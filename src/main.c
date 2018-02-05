@@ -116,7 +116,26 @@ main(int argc, char **argv)
           //printf("Waiting\n");
       }
     }
-
+    if (strcmp(argv[2],"command")==0)
+    {
+      printf("COMMAND MODE\n");
+      while(1) {
+          bytes_waiting = sp_input_waiting(port);
+          if (bytes_waiting > 0) {
+              num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+              print_buffer(byte_buff,num_read);
+          }
+          printf("Sending message \n");
+          char s1[50];
+          printf("Enter command: ");
+          int i = scanf("%s",s1);
+          printf("Sending command: %s\n",s1);
+          printf("%i\n",i);
+          write_array(s1);
+          sleep(10);
+          //printf("Waiting\n");
+      }
+    }
     while (0) {
 
         sleep(2);
