@@ -156,6 +156,25 @@ main(int argc, char **argv)
           //printf("Waiting\n");
       }
     }
+    if (strcmp(argv[2],"time")==0)
+    {
+      printf("TIME MODE\n");
+      FILE *times
+      char *mode = "r"
+      filename = "time.txt"
+
+      if(times == NULL)
+        fprintf(stderr, "ERROR: File %s\n can not be opened", filename);
+
+
+
+      times = fopen(filename, mode);
+
+      while(1) {
+
+          //printf("Waiting\n");
+      }
+    }
     while (0) {
 
         sleep(2);
