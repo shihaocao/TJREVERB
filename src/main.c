@@ -54,7 +54,7 @@ int
 main(int argc, char **argv)
 {
     file = fopen("log.txt", "a");
-    
+
     unsigned char byte_buff[BUFF_SIZE] = {0};
 
     int bytes_waiting = 0;
@@ -162,7 +162,7 @@ main(int argc, char **argv)
       }
     }
     if (strcmp(argv[2],"time")==0)
-    {
+    /*{
       printf("TIME MODE\n");
       FILE *times
       char *mode = "r"
@@ -179,7 +179,7 @@ main(int argc, char **argv)
 
           //printf("Waiting\n");
       }
-    }
+    }*/
     while (0) {
 
         sleep(2);
