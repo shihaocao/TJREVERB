@@ -158,19 +158,41 @@ main(int argc, char **argv)
     }
     if (strcmp(argv[2],"time")==0)
     {
-      printf("TIME MODE\n");
-      FILE *times
-      char *mode = "r"
-      filename = "time.txt"
+        /*FILE *fp;
+        FILE *fw;
+          char str[255];
+          char* filename = "time.txt";
 
-      if(times == NULL)
-        fprintf(stderr, "ERROR: File %s\n can not be opened", filename);
+          fp = fopen(filename,"r");
+          fw = fopen("timewrite.txt","w");
+          //while(1){
+          fgets(str,255,fp);
+
+          printf("%s",str);
+          printf("%lu\n",(unsigned long) strtoul(str,NULL,10));
+          fprintf(fw,"%lu\n",(unsigned long) strtoul(str,NULL,10));
+          fclose(fp);
+        while(1){
 
 
 
-      times = fopen(filename, mode);
 
-      while(1) {
+
+
+          time_t t;
+
+          t = time(NULL);
+          if((unsigned long)t == (unsigned long) strtoul(str,NULL,10)){
+            return 1;
+          }
+          fprintf(stdout, "%lu\n", (unsigned long)t);
+          fprintf(fw, "%lu\n", (unsigned long)t);
+          sleep(1);
+        }
+        fclose(fw);
+	}
+  fclose(fw);*/
+        //while(1) {
 
           //printf("Waiting\n");
       }
