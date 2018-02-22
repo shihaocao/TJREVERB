@@ -196,7 +196,7 @@ main(int argc, char **argv)
 
           //printf("Waiting\n");
       }
-    }
+
     while (0) {
 
         sleep(2);
