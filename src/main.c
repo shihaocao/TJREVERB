@@ -161,6 +161,9 @@ main(int argc, char **argv)
           //printf("Waiting\n");
       }
     }
+    if (strcmp(argv[2],"rishabh")==0) {
+	sleep(1);
+    }
     if (strcmp(argv[2],"time")==0)
     {
         /*FILE *fp;
