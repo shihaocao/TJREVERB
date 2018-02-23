@@ -156,7 +156,7 @@ main(int argc, char **argv)
           int i = scanf("%s",s1);
           printf("Sending command: %s\n",s1);
           printf("%i\n",i);
-          write_array(s1);
+          write_array("My command is: %s\n" s1);
           sleep(10);
           //printf("Waiting\n");
       }
