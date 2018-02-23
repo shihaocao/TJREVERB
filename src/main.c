@@ -151,12 +151,14 @@ main(int argc, char **argv)
               print_buffer(byte_buff,num_read);
           }
           printf("Sending message \n");
-          char s1[50];
+          char s1[500];
           printf("Enter command: ");
           int i = scanf("%s",s1);
           printf("Sending command: %s\n",s1);
           printf("%i\n",i);
-          write_array("My command is: %s\n" s1);
+          printf("%s\n",s1);
+          strcat(s1,"\n");
+          write_array(s1);
           sleep(10);
           //printf("Waiting\n");
       }
