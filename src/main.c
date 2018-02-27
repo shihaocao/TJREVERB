@@ -4,6 +4,7 @@
 #include <time.h>
 #include <string.h>
 
+
 #define BAUD_RATE   19200
 #define BUFF_SIZE   512
 
@@ -162,7 +163,20 @@ main(int argc, char **argv)
       }
     }
     if (strcmp(argv[2],"rishabh")==0) {
-	sleep(1);
+	FILE *fptr;
+	char filename[15];
+	int c;
+	char ch;
+	printf("File name to open: ");
+	scanf("%s", filename);
+	fptr = fopen(filename, "r");
+	char* contents = "";
+	if(fptr){
+		while((c = getc(file)) != EOF)
+			putchar(c);
+		fclose(fptr);
+	}
+
     }
     if (strcmp(argv[2],"time")==0)
     {
