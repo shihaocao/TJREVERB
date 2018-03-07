@@ -22,14 +22,27 @@ write_array(char *message)
 {
     int ret = sp_nonblocking_write(port, message, strlen(message));
     printf("Number of bytes sent: %d\n", ret);
-    if (ret < 0)
+	fprintf(file, "Sent: ");
+    for(unsigned int i=0 ; i < sizeof message ; i++){
+		fprintf(file, "%c", message[i]);	
+		printf("%c", message[i]);
+    }
+
+    if (ret < 0) {
         fprintf(stderr, "Unable to write to serial port %s\n", serial_port_name);
+		fprintf(file, "\nFAILED: unable to write to serial port");
+	}
+	fprintf(file, "\n");
 }
 
 void
 print_buffer(unsigned char *byte_buff, int num_read) {
-    for (int i = 0; i < num_read; i++)
-        printf("%c" , byte_buff[i]);
+    fprintf(file, "Received: ");
+    for (int i = 0; i < num_read; i++){
+        //printf("%c" , byte_buff[i]);
+		fprintf(file, "%c", byte_buff[i]);
+    }
+    fprintf(file, "\n");
 }
 
 void
@@ -53,8 +66,10 @@ print_banner()
 int
 main(int argc, char **argv)
 {
-    file = fopen("log.txt", "a");
-    
+    file = fopen("/Desktop/TJREVERB/log.txt", "a");
+    if(file == NULL){
+		printf("error opening file \n");
+    }
     unsigned char byte_buff[BUFF_SIZE] = {0};
 
     int bytes_waiting = 0;
