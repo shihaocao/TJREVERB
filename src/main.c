@@ -23,7 +23,7 @@ write_array(char *message)
     int ret = sp_nonblocking_write(port, message, strlen(message));
     printf("Number of bytes sent: %d\n", ret);
 	  fprintf(file, "Sent: ");
-    for(unsigned int i=0 ; i < sizeof message ; i++){
+    for(unsigned int i=0 ; i <  strlen(message) ; i++){
 		fprintf(file, "%c", message[i]);
 		printf("%c", message[i]);
     }
@@ -165,11 +165,13 @@ int main(int argc, char **argv)
               print_buffer(byte_buff,num_read);
           }
           printf("Sending message \n");
-          char s1[50];
+          char s1[500];
           printf("Enter command: ");
           int i = scanf("%s",s1);
           printf("Sending command: %s\n",s1);
           printf("%i\n",i);
+          printf("%s\n",s1);
+          strcat(s1,"\n");
           write_array(s1);
           sleep(10);
           //printf("Waiting\n");
