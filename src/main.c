@@ -22,16 +22,16 @@ write_array(char *message)
 {
     int ret = sp_nonblocking_write(port, message, strlen(message));
     printf("Number of bytes sent: %d\n", ret);
-	fprintf(file, "Sent: ");
+	  fprintf(file, "Sent: ");
     for(unsigned int i=0 ; i < sizeof message ; i++){
-		fprintf(file, "%c", message[i]);	
+		fprintf(file, "%c", message[i]);
 		printf("%c", message[i]);
     }
 
     if (ret < 0) {
         fprintf(stderr, "Unable to write to serial port %s\n", serial_port_name);
-		fprintf(file, "\nFAILED: unable to write to serial port");
-	}
+		    fprintf(file, "\nFAILED: unable to write to serial port");
+	  }
 	fprintf(file, "\n");
 }
 
@@ -63,10 +63,9 @@ print_banner()
     puts("Thomas Jefferson HS & George Mason Univ.  ");
     printf("Version 0.1 compiled %s %s\n", __DATE__, __TIME__);
 }
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-    file = fopen("/Desktop/TJREVERB/log.txt", "a");
+    file = fopen("src/log.txt", "a");
     if(file == NULL){
 		printf("error opening file \n");
     }
