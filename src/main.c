@@ -163,8 +163,8 @@ main(int argc, char **argv)
     }
     if (strcmp(argv[2],"time")==0)
     {
-        /*FILE *fp;
-        FILE *fw;
+          FILE *fp;
+          FILE *fw;
           char str[255];
           char* filename = "time.txt";
 
@@ -177,26 +177,24 @@ main(int argc, char **argv)
           printf("%lu\n",(unsigned long) strtoul(str,NULL,10));
           fprintf(fw,"%lu\n",(unsigned long) strtoul(str,NULL,10));
           fclose(fp);
-        while(1){
+          while(1){
 
 
+            time_t t;
 
+            t = time(NULL);
+            if((unsigned long)t == (unsigned long) strtoul(str,NULL,10)){
 
-
-
-          time_t t;
-
-          t = time(NULL);
-          if((unsigned long)t == (unsigned long) strtoul(str,NULL,10)){
-            return 1;
+              //send message
+              return 1;
+            }
+            fprintf(stdout, "%lu\n", (unsigned long)t);
+            //fprintf(fw, "%lu\n", (unsigned long)t);
+            sleep(1);
           }
-          fprintf(stdout, "%lu\n", (unsigned long)t);
-          fprintf(fw, "%lu\n", (unsigned long)t);
-          sleep(1);
-        }
-        fclose(fw);
+          fclose(fw);
 	}
-  fclose(fw);*/
+  //fclose(fw);
         //while(1) {
 
           //printf("Waiting\n");
