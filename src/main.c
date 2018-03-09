@@ -22,14 +22,27 @@ write_array(char *message)
 {
     int ret = sp_nonblocking_write(port, message, strlen(message));
     printf("Number of bytes sent: %d\n", ret);
-    if (ret < 0)
+	  fprintf(file, "Sent: ");
+    for(unsigned int i=0 ; i <  strlen(message) ; i++){
+		fprintf(file, "%c", message[i]);
+		printf("%c", message[i]);
+    }
+
+    if (ret < 0) {
         fprintf(stderr, "Unable to write to serial port %s\n", serial_port_name);
+		    fprintf(file, "\nFAILED: unable to write to serial port");
+	  }
+	fprintf(file, "\n");
 }
 
 void
 print_buffer(unsigned char *byte_buff, int num_read) {
-    for (int i = 0; i < num_read; i++)
-        printf("%c" , byte_buff[i]);
+    fprintf(file, "Received: ");
+    for (int i = 0; i < num_read; i++){
+        //printf("%c" , byte_buff[i]);
+		fprintf(file, "%c", byte_buff[i]);
+    }
+    fprintf(file, "\n");
 }
 
 void
@@ -50,11 +63,12 @@ print_banner()
     puts("Thomas Jefferson HS & George Mason Univ.  ");
     printf("Version 0.1 compiled %s %s\n", __DATE__, __TIME__);
 }
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-    file = fopen("log.txt", "a");
-    
+    file = fopen("src/log.txt", "a");
+    if(file == NULL){
+		printf("error opening file \n");
+    }
     unsigned char byte_buff[BUFF_SIZE] = {0};
 
     int bytes_waiting = 0;
@@ -100,7 +114,7 @@ main(int argc, char **argv)
               num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
               print_buffer(byte_buff,num_read);
               printf("Sending message \n");
-              write_array(("heartbeat response %s \n" __TIME__));
+              write_array(("heartbeat response %ld \n" __TIME__));
               sleep(2);
           }
  	  //sp_flush(port, bytes_waiting);
@@ -151,11 +165,13 @@ main(int argc, char **argv)
               print_buffer(byte_buff,num_read);
           }
           printf("Sending message \n");
-          char s1[50];
+          char s1[500];
           printf("Enter command: ");
           int i = scanf("%s",s1);
           printf("Sending command: %s\n",s1);
           printf("%i\n",i);
+          printf("%s\n",s1);
+          strcat(s1,"\n");
           write_array(s1);
           sleep(10);
           //printf("Waiting\n");
