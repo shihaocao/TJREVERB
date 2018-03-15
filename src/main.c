@@ -174,7 +174,7 @@ int main(int argc, char **argv)
           printf("%s\n",s1);
           strcat(s1,"\n");
           write_array(s1);
-          sleep(10);
+          sleep(2);
           //printf("Waiting\n");
       }
     }
