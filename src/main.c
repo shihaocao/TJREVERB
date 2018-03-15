@@ -117,7 +117,8 @@ int main(int argc, char **argv)
               write_array(("heartbeat response %ld \n" __TIME__));
               sleep(2);
           }
- 	  //sp_flush(port, bytes_waiting);
+          //bytes_waiting
+ 	        sp_flush(port, bytes_waiting);
 
       }
     }
