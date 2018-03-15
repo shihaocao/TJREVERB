@@ -179,6 +179,7 @@ int main(int argc, char **argv)
     }
     if (strcmp(argv[2],"time")==0)
     {
+      /*
           FILE *fp;
           FILE *fw;
           char str[255];
@@ -209,7 +210,7 @@ int main(int argc, char **argv)
             sleep(1);
           }
           fclose(fw);
-	}
+	}*/
   //fclose(fw);
         //while(1) {
 
