@@ -22,27 +22,14 @@ write_array(char *message)
 {
     int ret = sp_nonblocking_write(port, message, strlen(message));
     printf("Number of bytes sent: %d\n", ret);
-	  fprintf(file, "Sent: ");
-    for(unsigned int i=0 ; i <  strlen(message) ; i++){
-		fprintf(file, "%c", message[i]);
-		printf("%c", message[i]);
-    }
-
-    if (ret < 0) {
+    if (ret < 0)
         fprintf(stderr, "Unable to write to serial port %s\n", serial_port_name);
-		    fprintf(file, "\nFAILED: unable to write to serial port");
-	  }
-	fprintf(file, "\n");
 }
 
 void
 print_buffer(unsigned char *byte_buff, int num_read) {
-    fprintf(file, "Received: ");
-    for (int i = 0; i < num_read; i++){
-        //printf("%c" , byte_buff[i]);
-		fprintf(file, "%c", byte_buff[i]);
-    }
-    fprintf(file, "\n");
+    for (int i = 0; i < num_read; i++)
+        printf("%c" , byte_buff[i]);
 }
 
 void
@@ -63,12 +50,11 @@ print_banner()
     puts("Thomas Jefferson HS & George Mason Univ.  ");
     printf("Version 0.1 compiled %s %s\n", __DATE__, __TIME__);
 }
-int main(int argc, char **argv)
+int
+main(int argc, char **argv)
 {
-    file = fopen("src/log.txt", "a");
-    if(file == NULL){
-		printf("error opening file \n");
-    }
+    file = fopen("log.txt", "a");
+
     unsigned char byte_buff[BUFF_SIZE] = {0};
 
     int bytes_waiting = 0;
@@ -114,11 +100,10 @@ int main(int argc, char **argv)
               num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
               print_buffer(byte_buff,num_read);
               printf("Sending message \n");
-              write_array(("heartbeat response %ld \n" __TIME__));
+              write_array(("heartbeat response %s \n" __TIME__));
               sleep(2);
           }
-          //bytes_waiting
- 	        sp_flush(port, bytes_waiting);
+ 	  //sp_flush(port, bytes_waiting);
 
       }
     }
@@ -174,50 +159,29 @@ int main(int argc, char **argv)
           printf("%s\n",s1);
           strcat(s1,"\n");
           write_array(s1);
-          sleep(2);
+          //sleep(10);
           //printf("Waiting\n");
       }
     }
     if (strcmp(argv[2],"time")==0)
-    {
-      /*
-          FILE *fp;
-          FILE *fw;
-          char str[255];
-          char* filename = "time.txt";
+    /*{
+      printf("TIME MODE\n");
+      FILE *times
+      char *mode = "r"
+      filename = "time.txt"
 
-          fp = fopen(filename,"r");
-          fw = fopen("timewrite.txt","w");
-          //while(1){
-          fgets(str,255,fp);
-
-          printf("%s",str);
-          printf("%lu\n",(unsigned long) strtoul(str,NULL,10));
-          fprintf(fw,"%lu\n",(unsigned long) strtoul(str,NULL,10));
-          fclose(fp);
-          while(1){
+      if(times == NULL)
+        fprintf(stderr, "ERROR: File %s\n can not be opened", filename);
 
 
-            time_t t;
 
-            t = time(NULL);
-            if((unsigned long)t == (unsigned long) strtoul(str,NULL,10)){
+      times = fopen(filename, mode);
 
-              //send message
-              return 1;
-            }
-            fprintf(stdout, "%lu\n", (unsigned long)t);
-            //fprintf(fw, "%lu\n", (unsigned long)t);
-            sleep(1);
-          }
-          fclose(fw);
-	}*/
-  //fclose(fw);
-        //while(1) {
+      while(1) {
 
           //printf("Waiting\n");
       }
-
+    }*/
     while (0) {
 
         sleep(2);
