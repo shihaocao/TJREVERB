@@ -90,6 +90,8 @@ main(int argc, char **argv)
         fprintf(stderr, "Unable to set the baud rate to: %d\n", BAUD_RATE);
         return -1;
     }
+
+
     //MODE CHOOSING HERE
     if (strcmp(argv[2],"heartbeat")==0)
     {
@@ -121,6 +123,7 @@ main(int argc, char **argv)
         ///char testnum[5]
         //
         time ( &rawtime );
+	time ( &oldtime);
         printf("%ld",rawtime);
         printf("\n");
         //long int newtime = rawtime + 5;
@@ -131,13 +134,22 @@ main(int argc, char **argv)
         //printf ( "Current local time and date: %s", asctime (timeinfo) );
           bytes_waiting = sp_input_waiting(port);
 
-          if (bytes_waiting > 0) {
+          
+          printf("Sending message \n");
+          write_array(("beacon pulse \n"));
+          
+	while(rawtime - oldtime < 16)
+	{
+		time ( &rawtime );
+		if (bytes_waiting > 0) {
               num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
               print_buffer(byte_buff,num_read);
           }
-          printf("Sending message \n");
-          write_array(("beacon pulse %s \n" __TIME__));
-          sleep(5);
+	}
+	
+	
+		 
+	//	sleep(8);
           //printf("Waiting\n");
       }
     }
