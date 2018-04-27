@@ -109,6 +109,36 @@ main(int argc, char **argv)
 
       }
     }
+if (strcmp(argv[2],"standard")==0)
+    {
+	printf("STANDARD MODE\n");
+
+	time_t rawtime;
+      time ( &rawtime );
+      long int oldtime = rawtime; 
+      time ( &oldtime);
+      while(1) {
+	time ( &rawtime );
+	
+
+          bytes_waiting = sp_input_waiting(port);
+          if (bytes_waiting > 0) {
+              num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+              print_buffer(byte_buff,num_read);
+              printf("Sending Response\n");
+              write_array(("SAT RESPONSE\n"));
+              sleep(2);
+          }
+	if(rawtime - oldtime > 20)
+	{
+		printf("SENDING SAT PERMA BEACON\n");
+          	write_array(("SAT PERMA BEACON \n"));
+		time ( &oldtime);
+          }
+ 	  //sp_flush(port, bytes_waiting);
+
+      }
+    }
     if (strcmp(argv[2],"beacon")==0)
     {
       time_t rawtime;
@@ -132,7 +162,7 @@ main(int argc, char **argv)
         //printf("%ld", newtime - 5);
         //timeinfo = localtime ( &rawtime );
         //printf ( "Current local time and date: %s", asctime (timeinfo) );
-          bytes_waiting = sp_input_waiting(port);
+          
 
           
           printf("Sending message \n");
@@ -140,10 +170,12 @@ main(int argc, char **argv)
           
 	while(rawtime - oldtime < 16)
 	{
+		bytes_waiting = sp_input_waiting(port);
 		time ( &rawtime );
 		if (bytes_waiting > 0) {
-              num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
-              print_buffer(byte_buff,num_read);
+              		num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+			//printf("read %d bytes\n",num_read);
+             		print_buffer(byte_buff,num_read);
           }
 	}
 	
