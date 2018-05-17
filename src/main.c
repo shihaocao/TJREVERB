@@ -105,7 +105,7 @@ main(int argc, char **argv)
 if (strcmp(argv[2],"standard")==0)
     {
 	printf("STANDARD MODE\n");
-
+	//similiar to beacon
 	time_t rawtime;
       	time ( &rawtime );
       	time_t oldtime = rawtime; 
@@ -114,11 +114,25 @@ if (strcmp(argv[2],"standard")==0)
 		time ( &rawtime );
           	bytes_waiting = sp_input_waiting(port);
           	if (bytes_waiting > 0) {
-			num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+          		//Important change: Edit to blocking read with small timeout to stop double response bug
+			num_read = sp_blocking_read(port,byte_buff, sizeof byte_buff,500);
 			print_buffer(byte_buff,num_read);
-			printf("Sending Response\n");
-			write_array(("SAT RESPONSE\n"));
-			sleep(2);
+
+			char* msg = "noop";
+			char retmsg[100];
+			
+			if(strcmp("noop",msg)==0){
+				snprintf(retmsg,sizeof retmsg,"IM ALIVE: %ld\n",rawtime);
+			}
+			else if(strcmp("gettime",msg)==0){
+				snprintf(retmsg,sizeof retmsg,"THIS IS THE TIME: %ld\n",rawtime);
+			}
+			else{
+				snprintf(retmsg,sizeof retmsg,"404 %ld\n",rawtime);
+			}
+			printf("Sending Response %s\n",retmsg);
+			write_array((retmsg));
+
 		}
 		if(rawtime - oldtime > 20)
 		{
@@ -162,6 +176,7 @@ if (strcmp(argv[2],"beacon")==0)
 		}
       	}
     }
+    
     if (strcmp(argv[2],"command")==0)
     {
       printf("COMMAND MODE\n");
