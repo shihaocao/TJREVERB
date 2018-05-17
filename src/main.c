@@ -53,7 +53,7 @@ print_banner()
 int
 main(int argc, char **argv)
 {
-    file = fopen("log.txt", "a");
+    //file = fopen("log.txt", "a");
 
     unsigned char byte_buff[BUFF_SIZE] = {0};
 
@@ -79,19 +79,12 @@ main(int argc, char **argv)
         fprintf(stderr, "Unable to open serial port %s\n", serial_port_name);
         return -1;
       }
-    /*ret = sp_open(port,SP_MODE_WRITE);
-    if (ret != SP_OK) {
-        fprintf(stderr, "Unable to open serial port %s\n", serial_port_name);
-        return -1;
-    }*/
 
     ret = sp_set_baudrate(port,BAUD_RATE);
     if (ret != SP_OK) {
         fprintf(stderr, "Unable to set the baud rate to: %d\n", BAUD_RATE);
         return -1;
     }
-
-
     //MODE CHOOSING HERE
     if (strcmp(argv[2],"heartbeat")==0)
     {
@@ -114,76 +107,60 @@ if (strcmp(argv[2],"standard")==0)
 	printf("STANDARD MODE\n");
 
 	time_t rawtime;
-      time ( &rawtime );
-      long int oldtime = rawtime; 
-      time ( &oldtime);
-      while(1) {
-	time ( &rawtime );
-	
-
-          bytes_waiting = sp_input_waiting(port);
-          if (bytes_waiting > 0) {
-              num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
-              print_buffer(byte_buff,num_read);
-              printf("Sending Response\n");
-              write_array(("SAT RESPONSE\n"));
-              sleep(2);
-          }
-	if(rawtime - oldtime > 20)
-	{
-		printf("SENDING SAT PERMA BEACON\n");
-          	write_array(("SAT PERMA BEACON \n"));
-		time ( &oldtime);
-          }
- 	  //sp_flush(port, bytes_waiting);
-
-      }
-    }
-    if (strcmp(argv[2],"beacon")==0)
-    {
-      time_t rawtime;
-      //struct tm * timeinfo;
-      time ( &rawtime );
-
-      long int oldtime = rawtime;
-
-      printf("BEACON MODE\n");
-      while(1) {
-
-        ///char testnum[5]
-        //
-        time ( &rawtime );
-	time ( &oldtime);
-        printf("%ld",rawtime);
-        printf("\n");
-        //long int newtime = rawtime + 5;
-        printf("%ld", oldtime);
-        printf("\n");
-        //printf("%ld", newtime - 5);
-        //timeinfo = localtime ( &rawtime );
-        //printf ( "Current local time and date: %s", asctime (timeinfo) );
-          
-
-          
-          printf("Sending message \n");
-          write_array(("beacon pulse \n"));
-          
-	while(rawtime - oldtime < 16)
-	{
-		bytes_waiting = sp_input_waiting(port);
+      	time ( &rawtime );
+      	time_t oldtime = rawtime; 
+      	time ( &oldtime);
+      	while(1) {
 		time ( &rawtime );
-		if (bytes_waiting > 0) {
-              		num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
-			//printf("read %d bytes\n",num_read);
-             		print_buffer(byte_buff,num_read);
-          }
-	}
-	
-	
-		 
-	//	sleep(8);
-          //printf("Waiting\n");
-      }
+          	bytes_waiting = sp_input_waiting(port);
+          	if (bytes_waiting > 0) {
+			num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+			print_buffer(byte_buff,num_read);
+			printf("Sending Response\n");
+			write_array(("SAT RESPONSE\n"));
+			sleep(2);
+		}
+		if(rawtime - oldtime > 20)
+		{
+			printf("SENDING SAT PERMA BEACON\n");
+		  	write_array(("SAT PERMA BEACON \n"));
+			time ( &oldtime);
+          	}
+ 	  //sp_flush(port, bytes_waiting);
+ 	  }
+    }
+if (strcmp(argv[2],"beacon")==0)
+	{
+	//declare current time variable
+	time_t rawtime;
+	//assign the variable
+	time ( &rawtime );
+	//create a reference time (used to be long int)
+	time_t oldtime = rawtime;
+
+	printf("BEACON MODE\n");
+	//operating loop      
+	while(1) {
+
+		time (&rawtime );
+		time (&oldtime);
+		printf("Current time: %ld",rawtime);
+	      	printf("\n");
+		printf("Sending message \n");
+		write_array(("beacon pulse \n"));
+          
+		while(rawtime - oldtime < 8)
+		{
+			bytes_waiting = sp_input_waiting(port);
+			//update current time
+			time ( &rawtime );
+			if (bytes_waiting > 0) {
+		      		num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+				//printf("read %d bytes\n",num_read);
+		     		print_buffer(byte_buff,num_read);
+		  	}
+		}
+      	}
     }
     if (strcmp(argv[2],"command")==0)
     {
@@ -207,29 +184,5 @@ if (strcmp(argv[2],"standard")==0)
           //printf("Waiting\n");
       }
     }
-    if (strcmp(argv[2],"time")==0)
-    /*{
-      printf("TIME MODE\n");
-      FILE *times
-      char *mode = "r"
-      filename = "time.txt"
-
-      if(times == NULL)
-        fprintf(stderr, "ERROR: File %s\n can not be opened", filename);
-
-
-
-      times = fopen(filename, mode);
-
-      while(1) {
-
-          //printf("Waiting\n");
-      }
-    }*/
-    while (0) {
-
-        sleep(2);
-    }
-
     return 0;
 }
