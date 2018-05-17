@@ -169,7 +169,7 @@ if (strcmp(argv[2],"beacon")==0)
 			//update current time
 			time ( &rawtime );
 			if (bytes_waiting > 0) {
-		      		num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+		      		num_read = sp_blocking_read(port,byte_buff, sizeof byte_buff,500);
 				//printf("read %d bytes\n",num_read);
 		     		print_buffer(byte_buff,num_read);
 		  	}
@@ -183,7 +183,7 @@ if (strcmp(argv[2],"beacon")==0)
       while(1) {
           bytes_waiting = sp_input_waiting(port);
           if (bytes_waiting > 0) {
-              num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+              num_read = sp_blocking_read(port,byte_buff, sizeof byte_buff,500);
               print_buffer(byte_buff,num_read);
           }
           printf("Sending message \n");
