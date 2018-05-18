@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+//for patrick
+#include <pthread.h>
+#include <stdlib.h>
 
 #define BAUD_RATE   19200
 #define BUFF_SIZE   512
@@ -36,6 +39,36 @@ void
 print_usage(char *command)
 {
     fprintf(stderr, "Usage: %s <serial device>\n", command);
+}
+
+//For command threading
+void *keyboard(void *args){
+    	char string[99];
+
+    	while(1){
+   		scanf("%99s", string);
+   		printf("Command: %s\n", string);
+   		strcat(string,"\n");
+   		write_array(string);
+	}
+}
+void *listen(void *args){
+	unsigned char mybyte_buff[BUFF_SIZE] = {0};
+
+    	int bytes_waiting = 0;
+    	int num_read = 0;
+	while(1){
+		//printf("listening\n");
+		//sleep(1);
+		bytes_waiting = sp_input_waiting(port);
+		//update current time
+		//time ( &rawtime );
+		if (bytes_waiting > 0) {
+	      		num_read = sp_blocking_read(port,mybyte_buff, sizeof mybyte_buff,500);
+			//printf("read %d bytes\n",num_read);
+	     		print_buffer(mybyte_buff,num_read);
+	  	}
+    	}
 }
 
 void
@@ -179,25 +212,14 @@ if (strcmp(argv[2],"beacon")==0)
     
     if (strcmp(argv[2],"command")==0)
     {
-      printf("COMMAND MODE\n");
-      while(1) {
-          bytes_waiting = sp_input_waiting(port);
-          if (bytes_waiting > 0) {
-              num_read = sp_blocking_read(port,byte_buff, sizeof byte_buff,500);
-              print_buffer(byte_buff,num_read);
-          }
-          printf("Sending message \n");
-          char s1[500];
-          printf("Enter command: ");
-          int i = scanf("%s",s1);
-          printf("Sending command: %s\n",s1);
-          printf("%i\n",i);
-          printf("%s\n",s1);
-          strcat(s1,"\n");
-          write_array(s1);
-          //sleep(10);
-          //printf("Waiting\n");
-      }
+    	printf("COMMAND NEW MODE\n");
+    	pthread_t thread_id;
+	pthread_t thread_id2;
+	
+	pthread_create(&thread_id, NULL, listen, NULL);
+	pthread_create(&thread_id2,NULL,keyboard,NULL);
+	pthread_join(thread_id,NULL);
+	pthread_join(thread_id2,NULL);
     }
     return 0;
 }

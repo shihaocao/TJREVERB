@@ -14,13 +14,13 @@ LIBS =
 # General compiler flags
 COMPILE_FLAGS = -std=c99 -Wall -Wextra -g
 # Additional release-specific flags
-RCOMPILE_FLAGS = -D NDEBUG -Werror -O3
+RCOMPILE_FLAGS = -D NDEBUG -O3
 # Additional debug-specific flags
 DCOMPILE_FLAGS = -D DEBUG -g3
 # Add additional include paths
 INCLUDES = -I $(SRC_PATH) $(INCLUDE_PATH)
 # General linker settings
-LINK_FLAGS = -lserialport
+LINK_FLAGS = -lserialport -lpthread
 # Additional release-specific linker settings
 RLINK_FLAGS =
 # Additional debug-specific linker settings
