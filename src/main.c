@@ -121,14 +121,21 @@ main(int argc, char **argv)
     //MODE CHOOSING HERE
     if (strcmp(argv[2],"heartbeat")==0)
     {
+	time_t rawtime;
+      	time ( &rawtime );
+      	time_t oldtime = rawtime; 
+      	time ( &oldtime);
       printf("HEARTBEAT MODE\n");
+	char retmsg[100];
       while(1) {
+          time ( &rawtime );
           bytes_waiting = sp_input_waiting(port);
           if (bytes_waiting > 0) {
-              num_read = sp_nonblocking_read(port,byte_buff, sizeof byte_buff);
+		snprintf(retmsg,sizeof retmsg,"IM ALIVE: %ld\n",rawtime);
+              num_read = sp_blocking_read(port,byte_buff, sizeof byte_buff,500);
               print_buffer(byte_buff,num_read);
-              printf("Sending message \n");
-              write_array(("heartbeat response %s \n" __TIME__));
+              printf("Sending Response %s\n",retmsg);
+		write_array((retmsg));
               sleep(2);
           }
  	  //sp_flush(port, bytes_waiting);
