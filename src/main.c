@@ -195,13 +195,14 @@ if (strcmp(argv[2],"beacon")==0)
 	printf("BEACON MODE\n");
 	//operating loop      
 	while(1) {
-
+		char retmsg[100];
 		time (&rawtime );
 		time (&oldtime);
 		printf("Current time: %ld",rawtime);
 	      	printf("\n");
-		printf("Sending message \n");
-		write_array(("beacon pulse \n"));
+		printf("Sending beacon\n");
+		snprintf(retmsg,sizeof retmsg,"BEACON PULSE: %ld\n",rawtime);
+		write_array(retmsg);
           
 		while(rawtime - oldtime < 8)
 		{
@@ -216,7 +217,35 @@ if (strcmp(argv[2],"beacon")==0)
 		}
       	}
     }
-    
+    if (strcmp(argv[2],"iridium")==0)
+    {
+	printf("IRIDIUM\n");
+	time_t rawtime;
+      	time ( &rawtime );
+      	time_t oldtime = rawtime; 
+      	time ( &oldtime);
+	while(1){
+	    	
+	    	write_array("AT\r\n");
+		bytes_waiting = sp_input_waiting(port);
+		time (&rawtime );
+		time (&oldtime);
+		//update current time
+		//time ( &rawtime );
+		while(rawtime - oldtime < 8)
+		{
+			bytes_waiting = sp_input_waiting(port);
+			//update current time
+			time ( &rawtime );
+			if (bytes_waiting > 0) {
+		      		num_read = sp_blocking_read(port,byte_buff, sizeof byte_buff,500);
+				//printf("read %d bytes\n",num_read);
+		     		print_buffer(byte_buff,num_read);
+		  	}
+		}
+		
+	}
+    }
     if (strcmp(argv[2],"command")==0)
     {
     	printf("COMMAND NEW MODE\n");
