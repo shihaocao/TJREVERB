@@ -15,6 +15,10 @@ unsigned char replay_array[] =
 
 struct sp_port *port;
 char *serial_port_name;
+int bytes_waiting = 0;
+int num_read = 0;
+
+unsigned char byte_buff[BUFF_SIZE] = {0};
 
 FILE *file;
 
@@ -55,8 +59,50 @@ void *downlink(void *args){
 }
 
 void *standard(void *args){
-    while(1) {
-        time ( &rawtime );
+	unsigned char mybyte_buff[BUFF_SIZE] = {0};
+
+    	int bytes_waiting = 0;
+    	int num_read = 0;
+	time_t rawtime;
+      	time ( &rawtime );
+      	time_t oldtime = rawtime; 
+      	time ( &oldtime);
+	while(1){
+		time(&rawtime);
+		//printf("listening\n");
+		//sleep(1);
+		bytes_waiting = sp_input_waiting(port);
+		//update current time
+		//time ( &rawtime );
+		if (bytes_waiting > 0) {
+	      		num_read = sp_blocking_read(port,mybyte_buff, sizeof mybyte_buff,500);
+			//printf("read %d bytes\n",num_read);
+	     		print_buffer(mybyte_buff,num_read);
+			
+			char* msg = "noop";
+			char retmsg[100];
+			
+			if(strcmp("noop",msg)==0){
+				snprintf(retmsg,sizeof retmsg,"IM ALIVE: %ld\n",rawtime);
+			}
+			else if(strcmp("gettime",msg)==0){
+				snprintf(retmsg,sizeof retmsg,"THIS IS THE TIME: %ld\n",rawtime);
+			}
+			else{
+				snprintf(retmsg,sizeof retmsg,"404 %ld\n",rawtime);
+			}
+			printf("Sending Response %s\n",retmsg);
+			write_array((retmsg));
+
+		}
+		if(rawtime - oldtime > 20)
+		{
+			printf("SENDING SAT PERMA BEACON\n");
+		  	write_array(("SAT PERMA BEACON \n"));
+			time ( &oldtime);
+          	}
+    	}
+    /*while(1) {
         bytes_waiting = sp_input_waiting(port);
         if (bytes_waiting > 0) {
             //Important change: Edit to blocking read with small timeout to stop double response bug
@@ -67,26 +113,20 @@ void *standard(void *args){
             char retmsg[100];
             
             if(strcmp("noop",msg)==0){
-                snprintf(retmsg,sizeof retmsg,"IM ALIVE: %ld\n",rawtime);
+                snprintf(retmsg,sizeof retmsg,"IM ALIVE:");
             }
             else if(strcmp("gettime",msg)==0){
-                snprintf(retmsg,sizeof retmsg,"THIS IS THE TIME: %ld\n",rawtime);
+                snprintf(retmsg,sizeof retmsg,"THIS IS THE TIME:");
             }
             else{
-                snprintf(retmsg,sizeof retmsg,"404 %ld\n",rawtime);
+                snprintf(retmsg,sizeof retmsg,"404");
             }
             printf("Sending Response %s\n",retmsg);
             write_array((retmsg));
             
         }
-        if(rawtime - oldtime > 20)
-        {
-            printf("SENDING SAT PERMA BEACON\n");
-            write_array(("SAT PERMA BEACON \n"));
-            time ( &oldtime);
-        }
         //sp_flush(port, bytes_waiting);
-    }
+    }*/
     
 }
 
@@ -137,10 +177,8 @@ main(int argc, char **argv)
 {
     //file = fopen("log.txt", "a");
 
-    unsigned char byte_buff[BUFF_SIZE] = {0};
 
-    int bytes_waiting = 0;
-    int num_read = 0;
+
 
     print_banner();
 
