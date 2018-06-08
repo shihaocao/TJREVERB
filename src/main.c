@@ -95,7 +95,7 @@ void *standard(void *args){
 			write_array((retmsg));
 
 		}
-		if(rawtime - oldtime > 20)
+		if(rawtime - oldtime > 70)
 		{
 			printf("SENDING SAT PERMA BEACON\n");
 		  	write_array(("SAT PERMA BEACON \n"));
