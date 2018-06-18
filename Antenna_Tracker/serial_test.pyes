@@ -1,0 +1,16 @@
+#I hope this works
+import serial
+
+ser = serial.Serial('/dev/ttyUSB1',9600)
+#s = []
+
+while True:
+	in1 = input("Give a command")
+	b = bytearray()
+	b.extend(map(ord,in1))
+	ser.println(b)
+	read_serial=ser.readline()
+	#s[0] = str(int(read_serial,16))
+	#print s[0]
+	read_serial = str(read_serial.strip())[1:]
+	print(read_serial)

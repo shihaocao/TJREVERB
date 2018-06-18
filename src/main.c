@@ -107,7 +107,7 @@ main(int argc, char **argv)
         return -1;
     }
 
-    ret = sp_open(port,SP_MODE_READ_WRITE);
+    ret = sp_open(port, SP_MODE_READ | SP_MODE_WRITE);
     if (ret != SP_OK) {
         fprintf(stderr, "Unable to open serial port %s\n", serial_port_name);
         return -1;
