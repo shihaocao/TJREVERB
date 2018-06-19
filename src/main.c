@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+#include "arraylist.h"
 //for patrick
 #include <pthread.h>
 #include <stdlib.h>
@@ -22,6 +23,29 @@ unsigned char byte_buff[BUFF_SIZE] = {0};
 
 FILE *file;
 
+
+
+
+//creates check sum (summation over all terms in arr->array, mod by 256)
+void make_check_sum(ArrayList* arr){
+	int total = 0;
+	for(int i = 0 ; i<arr->size ; i++){
+		total += arr->array[i];
+	}
+	total %= 256;
+	add(arr, total);
+}
+
+//checks to see if check sum matches end character according to above checksum algorithm
+int check_sum(ArrayList* arr){
+	int checkVal = drop(arr, arr->size-1);
+	int total = 0;
+	for(int i = 0 ; i < arr->size ; i++){
+		total += arr->array[i];
+	}
+	total %= 256;
+	return total == checkVal;
+}
 
 
 void
@@ -60,7 +84,7 @@ void *downlink(void *args){
 
 void *standard(void *args){
 	unsigned char mybyte_buff[BUFF_SIZE] = {0};
-
+	ArrayList* byte_buff_arr;
     	int bytes_waiting = 0;
     	int num_read = 0;
 	time_t rawtime;
@@ -68,6 +92,7 @@ void *standard(void *args){
       	time_t oldtime = rawtime; 
       	time ( &oldtime);
 	while(1){
+		initArrayList(&(byte_buff_arr), BUFF_SIZE);
 		time(&rawtime);
 		//printf("listening\n");
 		//sleep(1);
@@ -75,9 +100,9 @@ void *standard(void *args){
 		//update current time
 		//time ( &rawtime );
 		if (bytes_waiting > 0) {
-	      		num_read = sp_blocking_read(port,mybyte_buff, sizeof mybyte_buff,500);
+	      		num_read = sp_blocking_read(port, mybyte_buff, sizeof mybyte_buff, 500);
 			//printf("read %d bytes\n",num_read);
-	     		print_buffer(mybyte_buff,num_read);
+	     		print_buffer(mybyte_buff, num_read);
 			
 			char* msg = "noop";
 			char retmsg[100];
@@ -101,6 +126,7 @@ void *standard(void *args){
 		  	write_array(("SAT PERMA BEACON \n"));
 			time ( &oldtime);
           	}
+		delete(byte_buff_arr);
     	}
     /*while(1) {
         bytes_waiting = sp_input_waiting(port);
@@ -176,10 +202,6 @@ int
 main(int argc, char **argv)
 {
     //file = fopen("log.txt", "a");
-
-
-
-
     print_banner();
 
     if (argc < 2) {
