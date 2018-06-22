@@ -19,12 +19,66 @@ char *serial_port_name;
 int bytes_waiting = 0;
 int num_read = 0;
 
+//GROUNDSTATION
+
 unsigned char byte_buff[BUFF_SIZE] = {0};
 
 FILE *file;
 
 
 
+int app_id(char* app_str){
+	int app_id = 0;
+	if(strcmp("app1", app_str) == 0){
+		app_id  = 97;	
+	}
+	else if(strcmp("app2", app_str)==0){
+		app_id = 98;
+	}
+	else if(app_str == "app3"){
+		app_id = 3;
+	}
+	else if(app_str == "app4"){
+		app_id = 4;
+	}
+	else if(app_str == "app5"){
+		app_id =5;
+	}
+	else if(app_str == "app6"){
+		app_id = 6;
+	}
+	else if(app_str == "app7"){
+		app_id = 7;
+	}
+	else if(app_str == "app8"){
+		app_id = 8;
+	}	
+	else if(app_str == "app9"){
+		app_id = 9;
+	}
+	else if(app_str == "app10"){
+		app_id = 10;
+	}
+	else if(app_str == "app11"){
+		app_id = 11;
+	}	
+	else if(app_str == "app12"){
+		app_id = 12;
+	}
+	return app_id;	
+}
+
+void prepend(ArrayList* arr, int data){
+	if(arr->size == arr->space){
+		arr->space *= 2;
+		arr->array = (unsigned char*)realloc(arr->array, arr->space * sizeof(int));
+	}
+	for(int i=arr->size; i > 0 ; i--){
+		arr->array[i] = arr->array[i-1];
+	}
+	arr->array[0] = data;
+	arr->size += 1;
+}
 
 //creates check sum (summation over all terms in arr->array, mod by 256)
 void make_check_sum(ArrayList* arr){
@@ -49,13 +103,21 @@ int check_sum(ArrayList* arr){
 
 
 void
-write_array(char *message)
+write_array( char* message)
 {
     int ret = sp_nonblocking_write(port, message, strlen(message));
     printf("Number of bytes sent: %d\n", ret);
     if (ret < 0)
         fprintf(stderr, "Unable to write to serial port %s\n", serial_port_name);
 }
+
+void write_array_list(ArrayList* arr){
+	int ret = sp_nonblocking_write(port, arr->array, arr->size);
+	printf("Number of bytes sent: %d\n", ret);
+    	if (ret < 0)
+        	printf("Unable to write to serial port %s\n", serial_port_name);
+}
+
 
 void
 print_buffer(unsigned char *byte_buff, int num_read) {
@@ -158,13 +220,40 @@ void *standard(void *args){
 
 //For command threading
 void *keyboard(void *args){
-    	char string[99];
-
     	while(1){
-   		scanf("%99s", string);
-   		printf("Command: %s\n", string);
-   		strcat(string,"\n");
-   		write_array(string);
+		ArrayList* to_send;
+		initArrayList(&to_send, 99);
+		char* app_name[4];
+		printf("Enter app id: ");
+		scanf("%s", app_name);
+		printf(app_name);
+		if(strcmp("app1", app_name) == 0){
+			printf("matches");
+		}
+		else{
+			printf("no id");
+		}
+		printf("\n");
+		printf("Enter command: ");
+   		scanf("%s", to_send->array);
+		to_send->size = strlen(to_send->array);
+		//printf(to_send->array);
+   		print_array_list(to_send);
+		printf("\n");
+		int app_num = 0;
+		app_num = app_id(app_name);
+		printf("%d", app_num);
+		prepend(to_send, app_num);
+		//printf("after prepend");
+		make_check_sum(to_send);
+		print_array_list(to_send);
+		//printf("after checksum");
+		//printf(to_send->array);
+		//printf("after second print");
+		printf("\n");
+		add(to_send, '\n');
+   		write_array_list(to_send);
+		delete(to_send);
 	}
 }
 void *listen(void *args){

@@ -96,7 +96,7 @@ ArrayList* extract(ArrayList* arr, int start, int end){
 void print_array_list(ArrayList* arr){
     for(int i=0 ; i<arr->size ; i++){
         char ret = arr->array[i];
-        printf("%c", ret);  
+        fprintf(stderr, "%c", ret);  
     
     }
 
