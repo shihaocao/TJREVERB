@@ -22,21 +22,8 @@ while(counter<100):
 
     if (ser.in_waiting > 0):
         rb = ser.read_until()
-        print(str(rb)[2:len(rb)])
-        '''
-        char* msg = "noop";
-        char retmsg[100];
+        print(str(rb))
 
-        if(strcmp("noop",msg)==0){
-            snprintf(retmsg,sizeof retmsg,"IM ALIVE: %ld\n",rawtime);
-        }
-        else if(strcmp("gettime",msg)==0){
-            snprintf(retmsg,sizeof retmsg,"THIS IS THE TIME: %ld\n",rawtime);
-        }
-        else{
-            snprintf(retmsg,sizeof retmsg,"404 %ld\n",rawtime);
-        }'''
-        #printf("Sending Response %s\n",retmsg);
         ser.write(b'python response\n')
 
 
@@ -48,3 +35,5 @@ while(counter<100):
         ser.write(bytes('sat_py_beacon_'+'bp_'+str(bp)+'-'+str(counter)+'\n', encoding='utf-8'))
         #ser.write(b'SAT PYTHON BEACON\n')
         oldtime = time.time()
+
+print('END 100')
