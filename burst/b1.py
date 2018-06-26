@@ -3,12 +3,13 @@ import time
 import sys
 #run python b1.py <bperiod>
 bp = int(sys.argv[1])
+ccc = sys.argv[2]
 state = True
 #if bp == 0; don't beacon
 if bp == 0:
     bp = 999999
     state = False
-ser = serial.Serial('COM5',19200)  # open serial port
+ser = serial.Serial(ccc,19200)  # open serial port
 print(ser.name)         # check which port was really used
 #ser.write(b'hello\n')     # write a string
 #ser.close()
