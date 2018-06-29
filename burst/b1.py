@@ -2,8 +2,9 @@ import serial
 import time
 import sys
 #run python b1.py <bperiod>
-bp = int(sys.argv[1])
+bp = float(sys.argv[1])
 ccc = sys.argv[2]
+target = int(sys.argv[3])
 state = True
 #if bp == 0; don't beacon
 if bp == 0:
@@ -21,20 +22,24 @@ while(counter<100):
 
     #bytes_waiting = sp_input_waiting(port);
 
+    #RISHABH THIS IS HOW YOU READ DATA LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOK
     if (ser.in_waiting > 0):
         rb = ser.read_until()
         print(str(rb))
 
-        ser.write(b'python response\n')
-
-
+        #ser.write(b'python response\n')
+    #END READ DATA
     if(rawtime - oldtime > bp) and state:
         counter += 1
         #printf("SENDING SAT PERMA BEACON\n");
         #write_array(("SAT PERMA BEACON \n"));
         #msg = 'sat_py_beacon_'+str(counter)
-        ser.write(bytes('sat_py_beacon_'+'bp_'+str(bp)+'-'+str(counter)+'\n', encoding='utf-8'))
-        #ser.write(b'SAT PYTHON BEACON\n')
+        temp = bytes('sat_py_beacon_'+'bp_'+str(bp)+'-'+str(counter)+'_bytes='+str(target)+':', encoding='utf-8')
+        #(len(temp))
+        temp += bytes('a'*(target-len(temp)-4)+'END'+'\n', encoding='utf-8')
+        print(len(temp))
+        ser.write(temp)
+        #ser.write(b'SAT PYTHON BEACON\n')f
         oldtime = time.time()
 
 print('END 100')
