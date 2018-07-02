@@ -17,7 +17,10 @@ while(totalRead < NUMREAD):
     #print("this code works")
     if ser.inWaiting() > 0:
         totalRead += 1
-        rb = ser.readline()
+        rb = ser.read()
+	time.sleep(.5)
+	zzz = ser.inWaiting()
+	rb += ser.read(zzz)
 	#        print("ddd"+str(rb))
 	#time.sleep(.5)
         #if ser.inWaiting()>0:
@@ -28,8 +31,8 @@ while(totalRead < NUMREAD):
     	rb = str(rb).strip("\n")
     	#print(str(bytes(rb,encoding = "utf-8")))
             #print(str(rb).strip())
-        #print(rb)
-        if("END" in rb)
+        print(rb)
+        if("END" in rb):
             correctRead += 1
     #totalRead += 1
     #print(str(totalRead)*100)
