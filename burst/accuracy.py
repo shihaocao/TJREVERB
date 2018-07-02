@@ -17,12 +17,19 @@ while(totalRead < NUMREAD):
     #print("this code works")
     if ser.inWaiting() > 0:
         totalRead += 1
-        rb = ser.read()
-        time.sleep(.5)
-        rb += ser.read()
+        rb = ser.readline()
+	#        print("ddd"+str(rb))
+	#time.sleep(.5)
+        #if ser.inWaiting()>0:
+	#   rb += ser.read()
+	#rb += ser.readl()
         #rb = str(rb)
-        print(str(rb).strip())
-        if (len(rb) == 0):
+	#print(rb)
+	rb = str(rb).strip("\n")
+	print(str(bytes(rb,encoding = "utf-8")))
+        #print(str(rb).strip())
+        print(rb)
+	if (len(rb) == 0):
             continue
         elif(rb[:36] != "KN4DTQ>SATT4,ARISS:sat_py_beacon_bp_" or (rb[41:51] != "_bytes=64:" or rb[42:52] != "_bytes=64:") or (rb[80:] != "END" or rb[81:] != "END")):
             continue
