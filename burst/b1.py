@@ -1,5 +1,6 @@
 import serial
 import time
+#from time import *
 import sys
 #run python b1.py <bperiod>
 bp = float(sys.argv[1])
@@ -38,8 +39,13 @@ while(counter<100):
         #(len(temp))
         temp += bytes('a'*(target-len(temp)-4)+'END'+'\n', encoding='utf-8')
         print('sent message: '+str(len(temp))+'::'+str(counter))
+        print(temp)
         ser.write(temp)
         #ser.write(b'SAT PYTHON BEACON\n')f
         oldtime = time.time()
-
-print('END 100')
+ccc = 0
+while(ccc<50):
+    ccc+=1
+    time.sleep(2)
+    ser.write(bytes('end', encoding='utf-8'))
+    print('END 100')
