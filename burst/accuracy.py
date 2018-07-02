@@ -26,14 +26,10 @@ while(totalRead < NUMREAD):
         #rb = str(rb)
 	#print(rb)
     	rb = str(rb).strip("\n")
-    	print(str(bytes(rb,encoding = "utf-8")))
+    	#print(str(bytes(rb,encoding = "utf-8")))
             #print(str(rb).strip())
         #print(rb)
-    	if (len(rb) == 0):
-                continue
-        elif(rb[:36] != "KN4DTQ>SATT4,ARISS:sat_py_beacon_bp_" or (rb[41:51] != "_bytes=64:" or rb[42:52] != "_bytes=64:") or (rb[80:] != "END" or rb[81:] != "END")):
-            continue
-        else:
+        if("END" in rb)
             correctRead += 1
     #totalRead += 1
     #print(str(totalRead)*100)
