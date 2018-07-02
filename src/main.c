@@ -28,7 +28,7 @@ FILE *file;
 
 
 int app_id(char* app_str){
-	int app_id = 0;
+	int app_id = 99;
 	if(strcmp("app1", app_str) == 0){
 		app_id  = 97;	
 	}
