@@ -37,7 +37,7 @@ while(counter<100):
         temp = bytes('sat_py_beacon_'+'bp_'+str(bp)+'-'+str(counter)+'_bytes='+str(target)+':', encoding='utf-8')
         #(len(temp))
         temp += bytes('a'*(target-len(temp)-4)+'END'+'\n', encoding='utf-8')
-        print(len(temp))
+        print('sent message: '+str(len(temp))+'::'+str(counter))
         ser.write(temp)
         #ser.write(b'SAT PYTHON BEACON\n')f
         oldtime = time.time()
