@@ -6,6 +6,13 @@ import sys
 bp = float(sys.argv[1])
 ccc = sys.argv[2]
 target = int(sys.argv[3])
+
+print(bp)
+print(ccc)
+print(target)
+
+
+
 state = True
 #if bp == 0; don't beacon
 if bp == 0:
