@@ -13,9 +13,36 @@ def sendCommand(cmd):
     cmd_echo = ser.readline()
     if debug:
         print("Echoed: {}".format(repr(cmd_echo)))
+def setup(port):
+    global ser
+    ser = serial.Serial(port=port, baudrate = 19200, timeout = 15)
+    ser.flush()
+    doTheOK()
+
+def doTheOK():
+    sendCommand("AT")
+    ser.readline().decode('UTF-8') # get the empty line
+    resp = ser.readline().decode('UTF-8')
+    print (resp)
+    if 'OK' not in resp:
+        print("Unexpected response: {}".format(repr(resp)))
+        exit(-1)
+
+    # show signal quality
+    sendCommand('AT+CSQ')
+    ser.readline().decode('UTF-8') # get the empty line
+    resp = ser.readline().decode('UTF-8')
+    ser.readline().decode('UTF-8') # get the empty line
+    ok = ser.readline().decode('UTF-8') # get the 'OK'
+    # print("resp: {}".format(repr(resp)))
+    if 'OK' not in ok:
+        print('Unexpected "OK" response: {}'.format(repr(ok)))
+        exit(-1)
+    if debug:
+        print("Signal quality 0-5: {}".format(repr(resp)))
 
 def main():
-    argument = "AT"
+    argument = " "
     command = " "
     global ser
     if len(sys.argv) > 1:
@@ -38,7 +65,7 @@ def main():
             exit(-1)
 
     ser = serial.Serial(port=port, baudrate=19200, timeout=15)
-    
+    doTheOK()
     if debug:
         print("Connected to {}".format(ser.name))
 
@@ -48,38 +75,21 @@ def main():
     # disable echo
     # sendCommand('ATE0', has_resp=True)
 
-    # make sure its a radio
-    sendCommand("AT")
-    ser.readline().decode('UTF-8') # get the empty line
-    resp = ser.readline().decode('UTF-8')
-    print (resp)
-    if 'OK' not in resp:
-        print("Unexpected response: {}".format(repr(resp)))
-        exit(-1)
-
-    # show signal quality
-    sendCommand('AT+CSQ')
-    ser.readline().decode('UTF-8') # get the empty line
-    resp = ser.readline().decode('UTF-8')
-    ser.readline().decode('UTF-8') # get the empty line
-    ok = ser.readline().decode('UTF-8') # get the 'OK'
-    # print("resp: {}".format(repr(resp)))
-    if 'OK' not in ok:
-        print('Unexpected "OK" response: {}'.format(repr(ok)))
-        exit(-1)
-    if debug:
-        print("Signal quality 0-5: {}".format(repr(resp)))
-    if ' ' not in command:
-        print("Sending command: "+command)
-        sendCommand(command)
-        exit(-1)
     
-    alert = 2
+    if ' ' not in argument:
+        print("Sending command: "+argument)
+        sendCommand(argument)
+        exit(-1)
+    if ' ' not in command:
+        print('Sending Message: '+command)
+        send(command)
 
+def send(thingToSend):
     # try to send until it sends
+    alert = 2
     while alert == 2:
         # prepare message
-        sendCommand("AT+SBDWT=" + command)
+        sendCommand("AT+SBDWT=" + thingToSend)
         ok = ser.readline().decode('UTF-8') # get the 'OK'
         ser.readline().decode('UTF-8') # get the empty line
 
@@ -89,16 +99,23 @@ def main():
         resp = ser.readline().decode('UTF-8') # get the rsp
         ser.readline().decode('UTF-8') # get the empty line
         ser.readline().decode('UTF-8') # get the OK
-        resp = resp.replace(",", "").split(" ")
+        resp = resp.replace(",", " ").split(" ")
         
-        if debug:
-            print("resp: {}".format(repr(resp)))
-        alert = int(resp[1])
-        if debug:
-            print("alert: {}".format(alert))
+          #  if debug:
+        print("resp: {}")
+        try:
+            print(resp)
+            alert = int(resp[1])
+            print("ALERT IS {}".format(alert))
+        except:
+            send(thingToSend)
+
+        #if debug:
+            #print("alert: {}".format(alert))
+    exit(-1)
 
 if __name__ == '__main__':
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 4:
         print(len(sys.argv))
         print("Usage: $0 <serial port> <command or message> <text to send or command>")
         exit(-1)
