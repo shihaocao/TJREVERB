@@ -3,3 +3,4 @@ build
 .*.swp
 tjreverb_serial
 *.pyc
+.idea/
