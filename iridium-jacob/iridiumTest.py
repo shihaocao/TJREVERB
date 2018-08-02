@@ -3,6 +3,8 @@ import serial
 
 debug = True
 
+global ser
+
 def sendCommand(cmd):
     if cmd[-1] != '\r\n':
         cmd += '\r\n'
@@ -38,18 +40,19 @@ def doTheOK():
     if 'OK' not in ok:
         print('Unexpected "OK" response: {}'.format(repr(ok)))
         exit(-1)
+    sendCommand("AT+SBDMTA=1")
     if debug:
         print("Signal quality 0-5: {}".format(repr(resp)))
 
 def main():
     argument = " "
     command = " "
-    global ser
+    global port
     if len(sys.argv) > 1:
         port = sys.argv[1]
     else:
         port = '/dev/ttyUSB0'
-
+    setup(port)
     if len(sys.argv) < 4:
         print("not enought args")
         exit(-1)
@@ -60,12 +63,14 @@ def main():
         elif sys.argv[2] == "command":
             argument = sys.argv[3]
             print("Command to execute: "+argument)
+        elif sys.argv[2] == "listen":
+            print("Listening for Ring")
+            listenUp()
         else:
-            print("argument 3 is not valid, say either command or message")
+            print("argument 3 is not valid, say either command, message or listen")
             exit(-1)
 
-    ser = serial.Serial(port=port, baudrate=19200, timeout=15)
-    doTheOK()
+    #setup(port)
     if debug:
         print("Connected to {}".format(ser.name))
 
@@ -83,6 +88,62 @@ def main():
     if ' ' not in command:
         print('Sending Message: '+command)
         send(command)
+def listenUp():
+    ser = serial.Serial(port=port, baudrate = 19200, timeout = None)
+    #sendCommand("ST+SBDMTA=1")
+    signalStrength = 0
+    ringSetup = 0
+    iteration = 0
+    while ringSetup != 2 :
+        #sendCommand("AT+CSQF")
+        #ser.readline().decode('UTF-8') #empty line
+        #ser.readline().decode('UTF-8') #empty line
+        #ser.readline().decode('UTF-8') #empty line??
+        #response = ser.readline().decode('UTF-8')
+        #print(response)
+        #response = response.replace("\r\n",":").split(":")
+        #print(response)
+        #signalStrength = int(response[1])
+        #ser.flush()
+        #ser.write("AT+SBDREG?\r\n".encode('UTF-8'))
+        #ser.readline().decode('UTF-8') #empty
+        #ser.flush()
+        #if iteration == 0:
+            #print(ser.readline().decode('UTF-8')+"1") #empty
+            #print(ser.readline().decode('UTF-8')+"2") #empty
+            #iteration+=1
+        #print(ser.readline().decode('UTF-8')+"3") #empty
+        #print(ser.readline().decode('UTF-8')+"4") #empty
+        #print(ser.readline().decode('UTF-8')+"5") #empty
+        #ser.readline().decode('UTF-8') #empty
+
+        #setup = ser.readline().decode('UTF-8')
+        #print(setup)
+        #ser.readline().decode('UTF-8') #empty
+        #setup = setup.replace("\r\n",":").split(":")
+        #print(setup)
+        #if int(setup[1]) != 2:
+            #sendCommand("AT+SBDREG")
+            #ser.readline().decode('UTF-8') #empty
+            #theOK = ser.readline().decode('UTF-8')
+            #if theOK == "OK":
+                #ringSetup = int(ser.readline().decode('UTF-8').replace("\r\n",":").split(":")[1])
+            #else:
+                #print("Error in AT+SBDREG")
+                #exit(-1)
+        ring = ser.readline().decode('UTF-8')
+
+        print(ring)
+        if "SBDRING" in ring:
+            sendCommand("AT+SBDIXA")
+            ser.readline().decode('UTF-8')#empty
+            ser.readline().decode('UTF-8')
+            sendCommand("AT+SBDRT")
+            print(ser.readline().decode('UTF-8'))
+            ringSetup = 0
+            break
+        #ser.flush()
+        print("listening...")
 
 def send(thingToSend):
     # try to send until it sends
