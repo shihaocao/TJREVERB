@@ -89,7 +89,7 @@ def main():
         print('Sending Message: '+command)
         send(command)
 def listenUp():
-    ser = serial.Serial(port=port, baudrate = 19200, timeout = None)
+    ser = serial.Serial(port=port, baudrate = 19200, timeout = 1)
     #sendCommand("ST+SBDMTA=1")
     signalStrength = 0
     ringSetup = 0
@@ -156,20 +156,24 @@ def send(thingToSend):
 
         # send message
         sendCommand("AT+SBDI")
-        ser.readline().decode('UTF-8') # get the empty line
-        resp = ser.readline().decode('UTF-8') # get the rsp
-        ser.readline().decode('UTF-8') # get the empty line
-        ser.readline().decode('UTF-8') # get the OK
+        resp = ser.readline().decode('UTF-8') # get the empty line
         resp = resp.replace(",", " ").split(" ")
+        while len(resp) > 0 and len(resp) <= 2:
+            print(resp)
+            resp = ser.readline().decode('UTF-8')    
+            resp = resp.replace(",", " ").split(" ")
+    
+        # get the rsp
         
           #  if debug:
-        print("resp: {}")
+        #print("resp: {}"t )
         try:
-            print(resp)
+            print("*******************" + str(resp))
             alert = int(resp[1])
-            print("ALERT IS {}".format(alert))
+            print(alert)
         except:
-            send(thingToSend)
+            print("********************exception thrown")
+            continue
 
         #if debug:
             #print("alert: {}".format(alert))
