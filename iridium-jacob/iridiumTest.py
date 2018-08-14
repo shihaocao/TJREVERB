@@ -1,5 +1,6 @@
 import sys
 import serial
+import time
 
 debug = True
 
@@ -14,7 +15,7 @@ def sendCommand(cmd):
     ser.flush()
     cmd_echo = ser.readline()
     if debug:
-        print("Echoed: {}".format(repr(cmd_echo)))
+        print("Echoed: " + cmd_echo.decode('UTF-8'))
 def setup(port):
     global ser
     ser = serial.Serial(port=port, baudrate = 19200, timeout = 15)
@@ -27,7 +28,7 @@ def doTheOK():
     resp = ser.readline().decode('UTF-8')
     print (resp)
     if 'OK' not in resp:
-        print("Unexpected response: {}".format(repr(resp)))
+        print("Echo"+resp)
         exit(-1)
 
     # show signal quality
@@ -38,11 +39,11 @@ def doTheOK():
     ok = ser.readline().decode('UTF-8') # get the 'OK'
     # print("resp: {}".format(repr(resp)))
     if 'OK' not in ok:
-        print('Unexpected "OK" response: {}'.format(repr(ok)))
+        print('Unexpected "OK" response: ' + ok)
         exit(-1)
-    sendCommand("AT+SBDMTA=1")
+    sendCommand("AT+SBDMTA=0")
     if debug:
-        print("Signal quality 0-5: {}".format(repr(resp)))
+        print("Signal quality 0-5: " + resp)
 
 def main():
     argument = " "
@@ -90,63 +91,33 @@ def main():
         send(command)
 def listenUp():
     ser = serial.Serial(port=port, baudrate = 19200, timeout = 1)
-    #sendCommand("ST+SBDMTA=1")
+    sendCommand("ST+SBDMTA=1")
     signalStrength = 0
     ringSetup = 0
     iteration = 0
     while ringSetup != 2 :
-        #sendCommand("AT+CSQF")
-        #ser.readline().decode('UTF-8') #empty line
-        #ser.readline().decode('UTF-8') #empty line
-        #ser.readline().decode('UTF-8') #empty line??
-        #response = ser.readline().decode('UTF-8')
-        #print(response)
-        #response = response.replace("\r\n",":").split(":")
-        #print(response)
-        #signalStrength = int(response[1])
-        #ser.flush()
-        #ser.write("AT+SBDREG?\r\n".encode('UTF-8'))
-        #ser.readline().decode('UTF-8') #empty
-        #ser.flush()
-        #if iteration == 0:
-            #print(ser.readline().decode('UTF-8')+"1") #empty
-            #print(ser.readline().decode('UTF-8')+"2") #empty
-            #iteration+=1
-        #print(ser.readline().decode('UTF-8')+"3") #empty
-        #print(ser.readline().decode('UTF-8')+"4") #empty
-        #print(ser.readline().decode('UTF-8')+"5") #empty
-        #ser.readline().decode('UTF-8') #empty
-
-        #setup = ser.readline().decode('UTF-8')
-        #print(setup)
-        #ser.readline().decode('UTF-8') #empty
-        #setup = setup.replace("\r\n",":").split(":")
-        #print(setup)
-        #if int(setup[1]) != 2:
-            #sendCommand("AT+SBDREG")
-            #ser.readline().decode('UTF-8') #empty
-            #theOK = ser.readline().decode('UTF-8')
-            #if theOK == "OK":
-                #ringSetup = int(ser.readline().decode('UTF-8').replace("\r\n",":").split(":")[1])
-            #else:
-                #print("Error in AT+SBDREG")
-                #exit(-1)
         ring = ser.readline().decode('UTF-8')
-
         print(ring)
         if "SBDRING" in ring:
-            sendCommand("AT+SBDIXA")
-            ser.readline().decode('UTF-8')#empty
-            ser.readline().decode('UTF-8')
+            bytesLeft=1
+            ser.timeout=none
+            while bytesLeft != 0:
+                sendCommand("AT+SBDIXA")
+                resp = serial.readline().decode('UTF-8').split(': ')[1].split(', ')
+                while len(resp) <= 2 and len(resp) > 0:
+                    resp = serial.readline.decode('UTF-8').split(': ')[1](', ')
+                bytesLeft=resp[0]
             sendCommand("AT+SBDRT")
             print(ser.readline().decode('UTF-8'))
             ringSetup = 0
+            sendCommand("at+sbdmta=0")
             break
         #ser.flush()
         print("listening...")
 
 def send(thingToSend):
     # try to send until it sends
+    startTime = time.time()
     alert = 2
     while alert == 2:
         # prepare message
@@ -158,11 +129,16 @@ def send(thingToSend):
         sendCommand("AT+SBDI")
         resp = ser.readline().decode('UTF-8') # get the empty line
         resp = resp.replace(",", " ").split(" ")
+        startTime = time.time()
+        currTime = startTime
         while len(resp) > 0 and len(resp) <= 2:
             print(resp)
             resp = ser.readline().decode('UTF-8')    
             resp = resp.replace(",", " ").split(" ")
-    
+            curTime = time.time()
+            if (curTime-startTime)>30:
+                print("time out moving on")
+                break
         # get the rsp
         
           #  if debug:
