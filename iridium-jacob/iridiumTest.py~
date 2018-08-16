@@ -44,7 +44,6 @@ def doTheOK():
     sendCommand("AT+SBDMTA=0")
     if debug:
         print("Signal quality 0-5: " + resp)
-    sendCommand("at+sbdreg")
 
 def main():
     argument = " "
