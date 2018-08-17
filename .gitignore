@@ -4,3 +4,5 @@ build
 tjreverb_serial
 *.pyc
 .idea/
+logs/
+pFS/logs/
