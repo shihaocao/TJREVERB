@@ -116,18 +116,20 @@ def listenUp():
             ser.timeout=120
             while bytesLeft != 0:
                 sendCommand("AT+SBDIXA")
-                resp = ser.readline().decode('UTF-8')
+                resp = "A"
                 while len(resp) < 2:
-                    resp = ser.readline.decode('UTF-8').split(': ')
-                print(resp[1])
+                    test = ser.readline().decode('UTF-8')
+                    #print("Response before Splitting: "+test+"tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+                    resp = test.split(': ')
+                #print("Response after splitting:  "+resp[1]+" 0 "+resp[0]+" END")
                 try:
                     resp = resp[1].split(', ')
                 except:
                     print("index out of bounds exception \r\n closing program")
                     exit(-1)
-                #bytesLeft= int(resp[0])
+                bytesLeft= int(resp[0])
                 #print("split response: "+resp[1])
-                bytesLeft = 0
+                #bytesLeft = 0
             sendCommand("AT+SBDRT")
             #while True:
                 #try:
