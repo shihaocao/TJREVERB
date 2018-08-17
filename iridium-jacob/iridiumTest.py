@@ -44,8 +44,20 @@ def doTheOK():
     sendCommand("AT+SBDMTA=0")
     if debug:
         print("Signal quality 0-5: " + resp)
-    sendCommand("at+sbdreg")
-
+    ser.write("AT+SBDREG? \r\n".encode('UTF-8'))
+    while True:
+        try:
+            regStat = int(ser.readline().decode('UTF-8').split(":")[1])
+            break
+        except:
+            continue
+        break
+    if regStat == 2:
+        print("Already Registered")
+    else:
+        print("Not Registered, registering now...")
+        sendCommand("AT+SBDREG")
+    
 def main():
     argument = " "
     command = " "
@@ -91,8 +103,8 @@ def main():
         print('Sending Message: '+command)
         send(command)
 def listenUp():
+    sendCommand("AT+SBDMTA=1")
     ser = serial.Serial(port=port, baudrate = 19200, timeout = 1)
-    sendCommand("ST+SBDMTA=1")
     signalStrength = 0
     ringSetup = 0
     iteration = 0
@@ -101,16 +113,37 @@ def listenUp():
         print(ring)
         if "SBDRING" in ring:
             bytesLeft=1
-            ser.timeout=none
+            ser.timeout=120
             while bytesLeft != 0:
                 sendCommand("AT+SBDIXA")
-                resp = serial.readline().decode('UTF-8').split(': ')[1].split(', ')
-                while len(resp) <= 2 and len(resp) > 0:
-                    resp = serial.readline.decode('UTF-8').split(': ')[1](', ')
-                bytesLeft=resp[0]
+                resp = ser.readline().decode('UTF-8')
+                while len(resp) < 2:
+                    resp = ser.readline.decode('UTF-8').split(': ')
+                print(resp[1])
+                try:
+                    resp = resp[1].split(', ')
+                except:
+                    print("index out of bounds exception \r\n closing program")
+                    exit(-1)
+                #bytesLeft= int(resp[0])
+                #print("split response: "+resp[1])
+                bytesLeft = 0
             sendCommand("AT+SBDRT")
-            print(ser.readline().decode('UTF-8'))
+            #while True:
+                #try:
+                    #print(ser.readline().decode('UTF-8').split(":")[1])
+
+                    #print("done")
+                    #break
+                #except:
+                    #continue
             ringSetup = 0
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
             sendCommand("at+sbdmta=0")
             break
         #ser.flush()
@@ -121,6 +154,13 @@ def send(thingToSend):
     startTime = time.time()
     alert = 2
     while alert == 2:
+        #signal = ser.readline().decode('UTF-8')#empty line
+        #signal = ser.readline().decode('UTF-8')#empty line
+        sendCommand("AT+CSQF")
+
+        signal = ser.readline().decode('UTF-8')#empty line
+        signal = ser.readline().decode('UTF-8')
+        print("last known signal strength: "+signal)
         # prepare message
         sendCommand("AT+SBDWT=" + thingToSend)
         ok = ser.readline().decode('UTF-8') # get the 'OK'
@@ -128,10 +168,14 @@ def send(thingToSend):
 
         # send message
         sendCommand("AT+SBDI")
+        
         resp = ser.readline().decode('UTF-8') # get the empty line
         resp = resp.replace(",", " ").split(" ")
         startTime = time.time()
         currTime = startTime
+
+        #signal = ser.readline().decode('UTF-8')#empty line
+        #signal = ser.readline().decode('UTF-8')#empty line
         while len(resp) > 0 and len(resp) <= 2:
             print(resp)
             resp = ser.readline().decode('UTF-8')    
