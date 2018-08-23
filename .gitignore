@@ -6,3 +6,4 @@ tjreverb_serial
 .idea/
 logs/
 pFS/logs/
+pFS/config.yml
