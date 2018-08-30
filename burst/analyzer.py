@@ -1,5 +1,8 @@
+import sys
+
+
 filename = str(sys.argv[1])
-lines = file.open(filename+'.txt').readlines()
+lines = open(filename,'r').readlines()
 
 corrupts = 0
 shorts = 0
@@ -8,7 +11,7 @@ losts = 0
 counter = 0
 goalbytes = -1
 bperiod = -1
-datafail = 0
+datafails = 0
 for line in lines:
 
     if '_' in line:
@@ -19,21 +22,25 @@ for line in lines:
         if line[-1] == '.':
             line = line[:-1]
         if 'bp_' in line and '-' in line:
-            bt = line[index.of('bp_')+1:index.of('-')]
+            bt = line[line.index('bp_')+3:line.index('-')]
             if bt is not bperiod:
-                datafail += 1
+                print('datafail')
+                bperiod = bt
+                datafails += 1
         else:
             corrupts += 1
             continue
         if 'bytes_' in line and ':' in line:
-            gt = line[index.of('bytes_')+1:index.of(':')]
+            gt = line[line.index('bytes_')+1:line.index(':')]
             if gt is not goalbytes:
-                datafail += 1
+                goalbytes = gt
+                print('goalbytesfail')
+                datafails += 1
         else:
             corrupts += 1
             continue
         if '_bytes' in line:
-            messagenum = line[index.of('-')+1:index.of('_bytes')]
+            messagenum = line[line.index('-')+1:line.index('_bytes')]
             if messagenum>counter:
                 losts += messagenum-counter
         else:
@@ -41,7 +48,7 @@ for line in lines:
             continue
 print('DATAFAILS: '+str(datafails))
 print('GOALBYTES: '+str(goalbytes))
-print('BPERIOD: '+str(bperiod
+print('BPERIOD: '+str(bperiod))
 print('----------')
 print('CORRUPTS: '+str(corrupts))
 print('SHORTS: '+str(shorts))
