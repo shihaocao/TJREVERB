@@ -17,10 +17,10 @@ for line in lines:
 
     if '_' in line:
         print(len(line))
-        line = line[10:-1]
+        line = line[10:]
         print(line)
         counter += 1
-        if 'END' not in line:
+        if 'END.' not in line:
             shorts += 1
             print('shirt')
             print(line)
@@ -58,6 +58,8 @@ for line in lines:
         else:
             corrupts += 1
             continue
+
+print(counter)
 print('DATAFAILS: '+str(datafails))
 print('GOALBYTES: '+str(goalbytes))
 print('BPERIOD: '+str(bperiod))
@@ -65,4 +67,5 @@ print('----------')
 print('CORRUPTS: '+str(corrupts))
 print('SHORTS: '+str(shorts))
 print('LOSTS: '+str(losts))
+
 print(50-corrupts-shorts-losts)
