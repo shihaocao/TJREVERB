@@ -25,7 +25,7 @@ print(ser.name)         # check which port was really used
 oldtime = time.time()
 counter = 0
 time.sleep(2)
-while(counter<100):
+while(counter<50):
     rawtime = time.time()
 
     #bytes_waiting = sp_input_waiting(port);
@@ -54,5 +54,5 @@ ccc = 0
 while(ccc<50):
     ccc+=1
     time.sleep(2)
-    ser.write(bytes('end', encoding='utf-8'))
+    #ser.write(bytes('end', encoding='utf-8'))
     print('END 100')

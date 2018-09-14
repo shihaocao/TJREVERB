@@ -1,5 +1,6 @@
 import sys
 import serial
+import time
 
 debug = True
 
@@ -14,7 +15,7 @@ def sendCommand(cmd):
     ser.flush()
     cmd_echo = ser.readline()
     if debug:
-        print("Echoed: {}".format(repr(cmd_echo)))
+        print("Echoed: " + cmd_echo.decode('UTF-8'))
 def setup(port):
     global ser
     ser = serial.Serial(port=port, baudrate = 19200, timeout = 15)
@@ -27,7 +28,7 @@ def doTheOK():
     resp = ser.readline().decode('UTF-8')
     print (resp)
     if 'OK' not in resp:
-        print("Unexpected response: {}".format(repr(resp)))
+        print("Echo"+resp)
         exit(-1)
 
     # show signal quality
@@ -38,12 +39,25 @@ def doTheOK():
     ok = ser.readline().decode('UTF-8') # get the 'OK'
     # print("resp: {}".format(repr(resp)))
     if 'OK' not in ok:
-        print('Unexpected "OK" response: {}'.format(repr(ok)))
+        print('Unexpected "OK" response: ' + ok)
         exit(-1)
-    sendCommand("AT+SBDMTA=1")
+    sendCommand("AT+SBDMTA=0")
     if debug:
-        print("Signal quality 0-5: {}".format(repr(resp)))
-
+        print("Signal quality 0-5: " + resp)
+    ser.write("AT+SBDREG? \r\n".encode('UTF-8'))
+    while True:
+        try:
+            regStat = int(ser.readline().decode('UTF-8').split(":")[1])
+            break
+        except:
+            continue
+        break
+    if regStat == 2:
+        print("Already Registered")
+    else:
+        print("Not Registered, registering now...")
+        sendCommand("AT+SBDREG")
+    
 def main():
     argument = " "
     command = " "
@@ -89,12 +103,13 @@ def main():
         print('Sending Message: '+command)
         send(command)
 def listenUp():
-    ser = serial.Serial(port=port, baudrate = 19200, timeout = None)
-    #sendCommand("ST+SBDMTA=1")
+    sendCommand("AT+SBDMTA=1")
+    ser = serial.Serial(port=port, baudrate = 19200, timeout = 1)
     signalStrength = 0
     ringSetup = 0
     iteration = 0
     while ringSetup != 2 :
+<<<<<<< HEAD
         """sendCommand("AT+CSQF")
         #ser.readline().decode('UTF-8') #empty line
         #ser.readline().decode('UTF-8') #empty line
@@ -131,24 +146,62 @@ def listenUp():
             #else:
                 #print("Error in AT+SBDREG")
                 #exit(-1)"""
+=======
+>>>>>>> c076dd50ad18ab9d1eec25c1caea4fc41ec715e6
         ring = ser.readline().decode('UTF-8')
-
         print(ring)
         if "SBDRING" in ring:
-            sendCommand("AT+SBDIXA")
-            ser.readline().decode('UTF-8')#empty
-            ser.readline().decode('UTF-8')
+            bytesLeft=1
+            ser.timeout=120
+            while bytesLeft != 0:
+                sendCommand("AT+SBDIXA")
+                resp = "A"
+                while len(resp) < 2:
+                    test = ser.readline().decode('UTF-8')
+                    #print("Response before Splitting: "+test+"tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+                    resp = test.split(': ')
+                #print("Response after splitting:  "+resp[1]+" 0 "+resp[0]+" END")
+                try:
+                    resp = resp[1].split(', ')
+                except:
+                    print("index out of bounds exception \r\n closing program")
+                    exit(-1)
+                bytesLeft= int(resp[0])
+                #print("split response: "+resp[1])
+                #bytesLeft = 0
             sendCommand("AT+SBDRT")
-            print(ser.readline().decode('UTF-8'))
+            #while True:
+                #try:
+                    #print(ser.readline().decode('UTF-8').split(":")[1])
+
+                    #print("done")
+                    #break
+                #except:
+                    #continue
             ringSetup = 0
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
+            print(ser.readline().decode('UTF-8'))
+            sendCommand("at+sbdmta=0")
             break
         #ser.flush()
         print("listening...")
 
 def send(thingToSend):
     # try to send until it sends
+    startTime = time.time()
     alert = 2
     while alert == 2:
+        #signal = ser.readline().decode('UTF-8')#empty line
+        #signal = ser.readline().decode('UTF-8')#empty line
+        sendCommand("AT+CSQF")
+
+        signal = ser.readline().decode('UTF-8')#empty line
+        signal = ser.readline().decode('UTF-8')
+        print("last known signal strength: "+signal)
         # prepare message
         sendCommand("AT+SBDWT=" + thingToSend)
         ok = ser.readline().decode('UTF-8') # get the 'OK'
@@ -156,20 +209,33 @@ def send(thingToSend):
 
         # send message
         sendCommand("AT+SBDI")
-        ser.readline().decode('UTF-8') # get the empty line
-        resp = ser.readline().decode('UTF-8') # get the rsp
-        ser.readline().decode('UTF-8') # get the empty line
-        ser.readline().decode('UTF-8') # get the OK
+        
+        resp = ser.readline().decode('UTF-8') # get the empty line
         resp = resp.replace(",", " ").split(" ")
+        startTime = time.time()
+        currTime = startTime
+
+        #signal = ser.readline().decode('UTF-8')#empty line
+        #signal = ser.readline().decode('UTF-8')#empty line
+        while len(resp) > 0 and len(resp) <= 2:
+            print(resp)
+            resp = ser.readline().decode('UTF-8')    
+            resp = resp.replace(",", " ").split(" ")
+            curTime = time.time()
+            if (curTime-startTime)>30:
+                print("time out moving on")
+                break
+        # get the rsp
         
           #  if debug:
-        print("resp: {}")
+        #print("resp: {}"t )
         try:
-            print(resp)
+            print("*******************" + str(resp))
             alert = int(resp[1])
-            print("ALERT IS {}".format(alert))
+            print(alert)
         except:
-            send(thingToSend)
+            print("********************exception thrown")
+            continue
 
         #if debug:
             #print("alert: {}".format(alert))
