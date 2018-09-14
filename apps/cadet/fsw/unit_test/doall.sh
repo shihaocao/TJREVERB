@@ -1,0 +1,2 @@
+rm cadet*.o
+make

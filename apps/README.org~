@@ -1,0 +1,29 @@
+|         |                                   | Used on  |              |
+| App     | Description                       | Dellingr | HK?          |
+|---------+-----------------------------------+----------+--------------|
+| cadet   | Cadet Radio                       |          |              |
+| cf      | CFDP protocol app                 |          |              |
+| cfs_lib | Core Flight System utility lib    |          |              |
+| ci_lab  | Command Ingest lab                |          |              |
+| cs      | CheckSum                          |          |              |
+| ds      | Data Storage                      |          |              |
+| fc      | File Commanding                   |          |              |
+| fm      | File Manager                      |          |              |
+| ful     | FUL? File transfer of some sort?  |          |              |
+| gnc     | Stub application                  |          |              |
+| hk      | HouseKeeping                      |          |Update table  |
+| hs      | Health and Safety                 |          |              |
+| inms    | Ion Neutral Mass Spectrometer     |          |              |
+| lc      | Limit Checker                     |          |              |
+| mag     | Stub application                  |          |              |
+| md      | Memory Dwell                      |          |              |
+| mm      | Memory Manager                    |          |              |
+| rw      | reaction wheel                    |          |              |
+| sc      | Stored Command                    |          |              |
+| sch     | Scheduler                         |          |              |
+| sch_lab | ?                                 |          |              |
+| shk     | science house keeping             |          |              |
+| tlc     | Stub application                  |          |              |
+| to_lab  | ?                                 |          |              |
+
+inc - include directory

@@ -95,7 +95,7 @@ def listenUp():
     ringSetup = 0
     iteration = 0
     while ringSetup != 2 :
-        #sendCommand("AT+CSQF")
+        """sendCommand("AT+CSQF")
         #ser.readline().decode('UTF-8') #empty line
         #ser.readline().decode('UTF-8') #empty line
         #ser.readline().decode('UTF-8') #empty line??
@@ -130,7 +130,7 @@ def listenUp():
                 #ringSetup = int(ser.readline().decode('UTF-8').replace("\r\n",":").split(":")[1])
             #else:
                 #print("Error in AT+SBDREG")
-                #exit(-1)
+                #exit(-1)"""
         ring = ser.readline().decode('UTF-8')
 
         print(ring)
