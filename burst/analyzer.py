@@ -31,8 +31,12 @@ for line in lines:
             line = line[:-1]
         if 'bp_' in line and '-' in line:
             bt = line[line.index('bp_')+3:line.index('-')]
-            if bt is not bperiod:
-                #print('datafail')
+            print(bt)
+            print(bperiod)
+            #print(type(bt))
+            #print(type(bperiod))
+            if bt == bperiod:
+                print('datafail')
                 bperiod = bt
                 datafails += 1
         else:
@@ -40,9 +44,10 @@ for line in lines:
             continue
         if 'bytes=' in line and ':' in line:
             gt = line[line.index('bytes=')+6:line.index(':')]
-            if gt is not goalbytes:
+            #print(gt)
+            if gt == goalbytes:
                 goalbytes = gt
-                #print('goalbytesfail')
+                print('goalbytesfail')
                 datafails += 1
         else:
             corrupts += 1
@@ -59,7 +64,7 @@ for line in lines:
             corrupts += 1
             continue
 
-print(counter)
+
 print('DATAFAILS: '+str(datafails))
 print('GOALBYTES: '+str(goalbytes))
 print('BPERIOD: '+str(bperiod))
