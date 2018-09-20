@@ -236,7 +236,7 @@ void readEvent() {
 
 void get_board_status(){
   int board_status[32] = {last_command, last_command_range, 0, 0, 0, wdt, por, bor , 0,0,0,0,0,0,0,0 , 0,0,0,0,0,0,0,0 , 0,0,0,0,0,0,0,0};
-  byte board_byte;
+  byte board_byte = 0;
   
   for(int i=31; i>=0; i--){
     board_byte |= (board_status[i] << i);
@@ -592,7 +592,7 @@ void get_num_soft_reset(){
 
 void get_all_pdm_initial_state(){
   int pdm_status[16] = {0, 0, 0, 0, 0, in9, in8, in7, in6, in5, in4, in3, in2, in1, in0};
-  byte status_byte;
+  byte status_byte = 0;
   for(int i=0; i<16 ; i++){
     status_byte |= pdm_status[i] << i;
   }

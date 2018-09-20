@@ -26,6 +26,7 @@ def get_BCR1_amps_A():
 def get_BCR1_amps_B():
     b.write_i2c_block_data(address, 0x10, 0x02)
     return b.read_byte(address)
+
 while true:
     turn_PDM_on(SW0)
     time.sleep(2)
