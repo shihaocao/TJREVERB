@@ -1,2 +1,0 @@
-rm cadet*.o
-make
