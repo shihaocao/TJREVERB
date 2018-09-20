@@ -7,3 +7,4 @@ tjreverb_serial
 logs/
 pFS/logs/
 pFS/config.yml
+.DS_Store
