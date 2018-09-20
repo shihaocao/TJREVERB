@@ -109,45 +109,6 @@ def listenUp():
     ringSetup = 0
     iteration = 0
     while ringSetup != 2 :
-<<<<<<< HEAD
-        """sendCommand("AT+CSQF")
-        #ser.readline().decode('UTF-8') #empty line
-        #ser.readline().decode('UTF-8') #empty line
-        #ser.readline().decode('UTF-8') #empty line??
-        #response = ser.readline().decode('UTF-8')
-        #print(response)
-        #response = response.replace("\r\n",":").split(":")
-        #print(response)
-        #signalStrength = int(response[1])
-        #ser.flush()
-        #ser.write("AT+SBDREG?\r\n".encode('UTF-8'))
-        #ser.readline().decode('UTF-8') #empty
-        #ser.flush()
-        #if iteration == 0:
-            #print(ser.readline().decode('UTF-8')+"1") #empty
-            #print(ser.readline().decode('UTF-8')+"2") #empty
-            #iteration+=1
-        #print(ser.readline().decode('UTF-8')+"3") #empty
-        #print(ser.readline().decode('UTF-8')+"4") #empty
-        #print(ser.readline().decode('UTF-8')+"5") #empty
-        #ser.readline().decode('UTF-8') #empty
-
-        #setup = ser.readline().decode('UTF-8')
-        #print(setup)
-        #ser.readline().decode('UTF-8') #empty
-        #setup = setup.replace("\r\n",":").split(":")
-        #print(setup)
-        #if int(setup[1]) != 2:
-            #sendCommand("AT+SBDREG")
-            #ser.readline().decode('UTF-8') #empty
-            #theOK = ser.readline().decode('UTF-8')
-            #if theOK == "OK":
-                #ringSetup = int(ser.readline().decode('UTF-8').replace("\r\n",":").split(":")[1])
-            #else:
-                #print("Error in AT+SBDREG")
-                #exit(-1)"""
-=======
->>>>>>> c076dd50ad18ab9d1eec25c1caea4fc41ec715e6
         ring = ser.readline().decode('UTF-8')
         print(ring)
         if "SBDRING" in ring:

@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import sys
-import serial
-import pyiridium9602 as iridium
-
-iridium_port = iridium.IridiumCommunicator(sys.argv[1])
-=======
 import pyiridium9602 as iridium
 import serial
 import sys
@@ -60,4 +53,3 @@ iridium_port.send_message("...")
 
 # Stop the `iridium_port.listen_thread` and close the port
 iridium_port.close()
->>>>>>> c076dd50ad18ab9d1eec25c1caea4fc41ec715e6
