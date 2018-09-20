@@ -1,0 +1,116 @@
+18:00:32$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-1_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:00:36$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-2_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:00:40$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-3_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:00:44$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-4_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:00:46$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          T#033,067,148,197,412,271,01000000
+18:00:47$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-5_bytes=12.
+18:00:48$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          :aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+18:00:51$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-6_b
+18:00:56$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-7_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:00$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-8_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:04$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-9_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:08$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-10_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:12$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-11_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:16$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-12_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:20$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-13_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:22$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          >TJefferson H.S. safe
+18:01:24$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-14_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:28$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-15_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:32$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-16_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:33$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          T#034,067,147,196,400,271,01000000
+18:01:36$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-17_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:40$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-18_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:44$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-19_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:48$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-20_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:52$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-21_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:01:56$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-22_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:00$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-23_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+18:02:04$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-24_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:08$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-25_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:12$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          T#035,067,149,199,390,271,01000000
+18:02:13$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-26_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:14$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          >TJefferson H.S. safe
+18:02:16$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-27_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:20$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-28_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:24$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-29_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+18:02:28$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-30_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:32$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-31_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:36$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_b.
+18:02:36$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          _4.0-32_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:40$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-33_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:44$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-34_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:48$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-35_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:52$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-36_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:02:56$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-37_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:00$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-38_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:04$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-39_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:08$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-40_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:12$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-41_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:13$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          T#036,063,145,194,379,271,01000000
+18:03:16$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-42_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:24$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-44_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:28$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-45_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:32$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-46_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:36$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-47_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:40$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-48_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:44$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-49_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:03:48$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          sat_py_beacon_bp_4.0-50_bytes=128:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaEND.
+18:04:13$ fm TJHSAT-1 to APOFF-0 via ARISS-0,WIDE2-1 UI  PID=F0
+          T#037,068,149,199,376,271,01000000
