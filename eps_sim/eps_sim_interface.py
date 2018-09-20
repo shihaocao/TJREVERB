@@ -1,7 +1,7 @@
 import smbus
 
 address = 43
-b = smbus.SMBus(0)
+b = smbus.SMBus(1)
 
 def turn_PDM_on(PDM_val):
     b.write_i2c_block_data(address, 0x12, PDM_val)
@@ -26,3 +26,8 @@ def get_BCR1_amps_A():
 def get_BCR1_amps_B():
     b.write_i2c_block_data(address, 0x10, 0x02)
     return b.read_byte(address)
+while true:
+    turn_PDM_on(SW0)
+    time.sleep(2)
+    turn_PDM_off(SW0)
+    time.sleep(2)
