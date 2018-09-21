@@ -1,7 +1,8 @@
 import logging
-import smbus
 import time
 from threading import Thread
+
+import smbus
 
 from . import aprs
 
@@ -14,7 +15,7 @@ def imu_beacon():
     while True:
         if len(datasave) > 9:
             for x in datasave:
-                aprs.send(x)
+                aprs.enqueue(x)
             datasave = []
             logging.debug('IMU DATASAVE CLEAR')
         time.sleep(1)

@@ -6,49 +6,39 @@ from . import gps
 
 logger = logging.getLogger("CI")
 
-
-def parse_aprs_packet(packet):
-    raw_packet = str(packet)
-    logger.info("From APRS: " + raw_packet)
-    header_index = raw_packet.find(':')
-    if header_index == -1:
-        logger.info("Incomplete header")
-        return
-    header = raw_packet[:header_index]
-    logger.info("header: " + header)
-    data = raw_packet[header_index + 1:]
-
-    if len(data) == 0:
-        logger.debug("Empty body")
-        return
-
-    logger.debug("Body: " + data)
-    decode(data)
+total_recieved: int = 0
+total_errors: int = 0
+total_success: int = 0
 
 
-def checksum(body):
+def generate_checksum(body: str):
     global sum1
     logger.debug(body[0:-7])
     sum1 = sum([ord(x) for x in body[0:-7]])
-    sum1 %= 128
+    sum1 %= 26
+    sum1 += 65
     logger.debug('CHECKOUT :' + chr(sum1) + ";")
-    return chr(sum1) == body[-7]
+    return chr(sum1)
 
 
-def decode(body):
+def dispatch(body: str):
+    global total_errors, total_recieved, total_success
     logger.debug(body[-5:-1])
     logger.debug(body[0:2])
-    if body[0:2] == 'TJ' and body[-5:-1] == '\\r\\n' and checksum(body):
+    if body[0:2] == 'TJ' and body[-5:-1] == '\\r\\n' and generate_checksum(body) == body[-7]:
+        total_recieved += 1
         logger.debug('Valid message')
         logger.debug(body[4:-7])
         try:
             # execute command
             modules[body[2]][body[3]](body[4:-7])
-            aprs.last_message_time = time.time() # Update the last command time
-        except KeyError:
+            aprs.last_message_time = time.time()  # Update the last command time
+            total_success += 1
+        except:
             # Invalid command format was send
             logger.warning("Invalid command with correct checksum")
-    elif body[0:2] == 'T#': # Telemetry Packet: APRS special case
+            total_errors += 1
+    elif body[0:2] == 'T#':  # Telemetry Packet: APRS special case
         aprs.last_telem_time = time.time()
         aprs.beacon_seen = True
         aprs.pause_sending = True
@@ -57,14 +47,10 @@ def decode(body):
         logger.debug('Invalid message')
 
 
-def piprint(packet):
-    print("FROM APRS: " + str(packet))
-
-
 def on_startup():
     global modules, m_aprs, m_gps
     # modules = {'A':core,'B':m_aprs,'C':'iridium','D':'housekeeping','E':'log','F':'GPS'}
-    m_aprs = {'a': aprs.send}
+    m_aprs = {'a': aprs.enqueue}
     m_gps = {'a': gps.sendgpsthruaprs}
     modules = {'B': m_aprs, 'F': m_gps}
     # core = {}

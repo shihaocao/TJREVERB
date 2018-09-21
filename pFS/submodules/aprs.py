@@ -6,10 +6,12 @@ from typing import Union
 
 import serial
 
-import submodules.command_ingest as ci
 from core import config
-
 # Initalize global variables
+from submodules import command_ingest
+
+# from submodules.command_ingest import logger, dispatch
+
 logger = logging.getLogger("APRS")
 pause_sending = False
 send_buffer = []
@@ -22,8 +24,10 @@ bperiod = 60
 ser: Union[serial.Serial, None] = None
 
 
-# Enqueue a message to be sent
-def send(msg):
+# Put a packet in the APRS queue.  The APRS queue exists
+# only to make sure that we don't send and receive at the
+# same time.
+def enqueue(msg):
     global send_buffer
     msg = msg + "\r\n"
     send_buffer += [msg]
@@ -60,7 +64,26 @@ def listen():
         # Read in a full message from serial
         line = ser.readline()
         # Dispatch command
-        ci.parse_aprs_packet(line)
+        parse_aprs_packet(line)
+
+
+def parse_aprs_packet(packet):
+    raw_packet = str(packet)
+    logger.info("From APRS: " + raw_packet)
+    header_index = raw_packet.find(':')
+    if header_index == -1:
+        logger.info("Incomplete header")
+        return
+    header = raw_packet[:header_index]
+    logger.info("header: " + header)
+    data = raw_packet[header_index + 1:]
+
+    if len(data) == 0:
+        logger.debug("Empty body")
+        return
+
+    logger.debug("Body: " + data)
+    command_ingest.dispatch(data)
 
 
 # Method that is called upon application startup.
