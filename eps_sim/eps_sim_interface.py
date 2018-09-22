@@ -3,7 +3,7 @@ import time
 from smbus2 import *
 
 address = 43
-bus = smbus.SMBus(1)
+b = smbus.SMBus(1)
 
 SW0 = 2
 Sw1 = 3
@@ -39,14 +39,14 @@ RESET_NODE = b"0x80"
 
 
 def pin_on(PDM_val):
-    with SMBusWrapper(1) as bus:
+    with SMBusWrapper(1) as b:
         PDM_val = [PDM_val]
-        bus.write_i2c_block_data(address, 0x12, PDM_val)
+        b.write_i2c_block_data(address, 0x12, PDM_val)
 
 def pin_off(PDM_val):
-    with SMBusWrapper(1) as bus:
+    with SMBusWrapper(1) as b:
         PDM_val = [PDM_val]
-        bus.write_i2c_block_data(address, 0x13, PDM_val)
+        b.write_i2c_block_data(address, 0x13, PDM_val)
 
 #def get_board_status():
 #    return b.read_i2c_block_data(address, 0x01)
