@@ -48,26 +48,33 @@ def pin_off(PDM_val):
         PDM_val = [PDM_val]
         b.write_i2c_block_data(address, 0x13, PDM_val)
 
-#def get_board_status():
-#    return b.read_i2c_block_data(address, 0x01)
+def get_board_status():
+    with SMBusWrapper(1) as b:
+        return b.read_i2c_block_data(address, 0x01)
 
-#def set_system_watchdog_timeout(timeout):
-#    b.write_i2c_block_data(address, 0x06, timeout)
+def set_system_watchdog_timeout(timeout):
+    with SMBusWrapper(1) as b:
+        timeout = [timeout]
+        b.write_i2c_block_data(address, 0x06, timeout)
 
-#def get_BCR1_volts():
-#    b.write_i2c_block_data(address, 0x10, 0x00)
-#    return b.read_byte(address)
+def get_BCR1_volts():
+    with SMBusWrapper(1) as b:
+        b.write_i2c_block_data(address, 0x10, 0x00)
+        return b.read_byte(address)
 
-#def get_BCR1_amps_A():
-#    b.write_i2c_block_data(address, 0x10, 0x01)
-#    return b.read_byte(address)
+def get_BCR1_amps_A():
+    with SMBusWrapper(1) as b:
+        b.write_i2c_block_data(address, 0x10, 0x01)
+        return b.read_byte(address)
 
-#def get_BCR1_amps_B():
-#    b.write_i2c_block_data(address, 0x10, 0x02)
-#    return b.read_byte(address)
+def get_BCR1_amps_B():
+    with SMBusWrapper(1) as b:
+        b.write_i2c_block_data(address, 0x10, 0x02)
+        return b.read_byte(address)
 
+# Flashes LED at D3 (Pin 3) in 1 second increments
 while True:
     pin_on(SW0)
-    time.sleep(2)
+    time.sleep(1)
     pin_off(SW0)
-    time.sleep(2)
+    time.sleep(1)
