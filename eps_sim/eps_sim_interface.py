@@ -3,7 +3,7 @@ import time
 from smbus2 import *
 
 address = 43
-b = smbus.SMBus(1)
+bus = smbus.SMBus(1)
 
 SW0 = 1
 Sw1 = 2
@@ -39,38 +39,38 @@ RESET_NODE = b"0x80"
 
 
 def pin_on(PDM_val):
-    with SMBusWrapper(1) as b:
+    with SMBusWrapper(1) as bus:
         PDM_val = [PDM_val]
-        b.write_i2c_block_data(address, 0x12, PDM_val)
+        bus.write_i2c_block_data(address, 0x12, PDM_val)
 
 def pin_off(PDM_val):
-    with SMBusWrapper(1) as b:
+    with SMBusWrapper(1) as bus:
         PDM_val = [PDM_val]
-        b.write_i2c_block_data(address, 0x13, PDM_val)
+        bus.write_i2c_block_data(address, 0x13, PDM_val)
 
 def get_board_status():
-    with SMBusWrapper(1) as b:
-        return b.read_i2c_block_data(address, 0x01)
+    with SMBusWrapper(1) as bus:
+        return bus.read_i2c_block_data(address, 0x01)
 
 def set_system_watchdog_timeout(timeout):
-    with SMBusWrapper(1) as b:
+    with SMBusWrapper(1) as bus:
         timeout = [timeout]
-        b.write_i2c_block_data(address, 0x06, timeout)
+        bus.write_i2c_block_data(address, 0x06, timeout)
 
 def get_BCR1_volts():
-    with SMBusWrapper(1) as b:
-        b.write_i2c_block_data(address, 0x10, 0x00)
-        return b.read_byte(address)
+    with SMBusWrapper(1) as bus:
+        bus.write_i2c_block_data(address, 0x10, 0x00)
+        return bus.read_byte(address)
 
 def get_BCR1_amps_A():
-    with SMBusWrapper(1) as b:
-        b.write_i2c_block_data(address, 0x10, 0x01)
-        return b.read_byte(address)
+    with SMBusWrapper(1) as bus:
+        bus.write_i2c_block_data(address, 0x10, 0x01)
+        return bus.read_byte(address)
 
 def get_BCR1_amps_B():
-    with SMBusWrapper(1) as b:
-        b.write_i2c_block_data(address, 0x10, 0x02)
-        return b.read_byte(address)
+    with SMBusWrapper(1) as bus:
+        bus.write_i2c_block_data(address, 0x10, 0x02)
+        return bus.read_byte(address)
 
 # Flashes LED at D3 (Pin 3) in 1 second increments
 while True:
