@@ -1,20 +1,20 @@
 import smbus
 import time
-from smbus2 import *
+from smbus2 import SMBusWrapper
 
 address = 43
 bus = smbus.SMBus(1)
 
-SW0 = 1
-Sw1 = 2
-SW2 = 3
-SW3 = 4
-SW4 = 5
-SW5 = 6
-SW6 = 7
-SW7 = 8
-SW8 = 9
-SW9 = 10
+SW0 = 2
+Sw1 = 3
+SW2 = 4
+SW3 = 5
+SW4 = 6
+SW5 = 7
+SW6 = 8
+SW7 = 9
+SW8 = 10
+SW9 = 11
 
 GET_BOARD_STATUS = b"0x01"
 SET_PCM_RESET = b"0x02"
