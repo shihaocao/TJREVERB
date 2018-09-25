@@ -5,7 +5,7 @@ from smbus2 import *
 address = 43
 bus = smbus.SMBus(1)
 
-SW0 = 2
+SW0 = 1
 Sw1 = 2
 SW2 = 3
 SW3 = 4
