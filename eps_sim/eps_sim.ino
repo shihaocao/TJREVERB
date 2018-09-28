@@ -1,6 +1,5 @@
 #include <Wire.h>
 
-
 //----define command set for easy use-----//
 
 #define GET_BOARD_STATUS 0x01
@@ -47,6 +46,8 @@ int V3_3 = 17;
 
 //----- variables for board status -------//
 
+
+
 int last_command=0;
 int last_command_range=0;
 int wdt=0;
@@ -54,6 +55,10 @@ int por=1;
 int bor=0;
 
 //---------------------------------------//
+
+//---------- analog read pins ------------//
+
+int pinRead = 0;
 
 
 //------------ PDM Initial States -------//
@@ -113,12 +118,12 @@ void setup() {
 
 
   Wire.begin(43);
-  Wire.onReceive(writeEvent);
-  Wire.onRequest(readEvent);
+  Wire.onReceive(receiveEvent);
+  Wire.onRequest(requestEvent);
   
 }
 
-void writeEvent() {
+void receiveEvent(int howMany) {
   int command = Wire.read();
   int data = Wire.read();
   
@@ -187,7 +192,7 @@ void writeEvent() {
   }
 }
 
-void readEvent() {
+void requestEvent() {
   int command = Wire.read();
   switch(command){
     case GET_BOARD_STATUS: 
@@ -235,8 +240,8 @@ void readEvent() {
 
 
 void get_board_status(){
-  int board_status[32] = {last_command, last_command_range, 0, 0, 0, wdt, por, bor , 0,0,0,0,0,0,0,0 , 0,0,0,0,0,0,0,0 , 0,0,0,0,0,0,0,0};
-  byte board_byte = 0;
+  int board_status[32] = {bor , por , wdt , 0, 0, 0, last_command_range, last_command , 0,0,0,0,0,0,0,0 , 0,0,0,0,0,0,0,0 , 0,0,0,0,0,0,0,0};
+  byte board_byte;
   
   for(int i=31; i>=0; i--){
     board_byte |= (board_status[i] << i);
@@ -592,7 +597,7 @@ void get_num_soft_reset(){
 
 void get_all_pdm_initial_state(){
   int pdm_status[16] = {0, 0, 0, 0, 0, in9, in8, in7, in6, in5, in4, in3, in2, in1, in0};
-  byte status_byte = 0;
+  byte status_byte;
   for(int i=0; i<16 ; i++){
     status_byte |= pdm_status[i] << i;
   }
@@ -601,7 +606,20 @@ void get_all_pdm_initial_state(){
 }
 
 void get_board_telem(int data){
+  if (data == 0x23) {
+    deal_with_potentiometer_stuff();
+  }
+  else{
+    
+  }
   
+}
+
+void deal_with_potentiometer_stuff(){
+  double pot_volt = .0025*(double)(analogRead(pinRead));
+  pot_volt += 6;
+  pot_volt *= 100;
+  Wire.write((int)(pot_volt));
   
 }
 
@@ -616,6 +634,5 @@ void reset_node(){
 
 
 void loop() {
-  // put your main code here, to run repeatedly:
   delay(100);
 }
