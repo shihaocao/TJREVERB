@@ -42,19 +42,17 @@ def pin_on(device_name):
         PDM_val = [epsdict[device_name]]
         bus.write_i2c_block_data(address, 0x12, PDM_val)
         if get_PDM_status(device_name) == 1: # PDM is ON
-            logger.error("Pin is already ON.")
+            logger.error(device_name + " is already ON.")
         else:
-            logger.debug("Pin communication successful. \
-            Pin is now ON.")
+            logger.debug("Communication successful. " + device_name + " is now ON.")
 def pin_off(device_name):
     with SMBusWrapper(1) as bus:
         PDM_val = [epsdict[device_name]]
         bus.write_i2c_block_data(address, 0x13, PDM_val)
         if get_PDM_status(device_name) == 0: # PDM is OFF
-            logger.error("Pin is already OFF.")
+            logger.error(device_name + " is already OFF.")
         else:
-            logger.debug("Pin communication successful. \
-            Pin is now OFF.")
+            logger.debug("Communication successful. " + device_name + " is now OFF.")
 def get_PDM_status(device_name):
     with SMBusWrapper(1) as bus:
         PDM_val = [epsdict[device_name]]
@@ -81,10 +79,12 @@ def get_BCR1_amps_B():
         return bus.read_byte(address)
 def led_on_off():
     while True:
-        pin_on('aprs')
-        time.sleep(1)
-        pin_off('aprs')
-        time.sleep(1)
+        for key,val in epsdict.items():
+            if val > 0:
+                pin_on(key)
+                time.sleep(1)
+                pin_off(key)
+                time.sleep(1)
 
 # Method that is called upon application startup.
 def on_startup():
@@ -94,12 +94,6 @@ def on_startup():
     # Opens the serial port for all methods to use with 19200 baud
     #ser = serial.Serial(config['eps']['serial_port'], 19200)
 
-    for key,val in epsdict.items():
-        if val > 0:
-            pin_on(key)
-            time.sleep(1)
-            pin_off(key)
-            time.sleep(1)
     # Create all the background threads
     t1 = Thread(target=led_on_off, args=(), daemon=True)
 
